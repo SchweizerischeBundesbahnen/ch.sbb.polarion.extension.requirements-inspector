@@ -12,7 +12,7 @@
     <version>2.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>requirements-inspector ... extension of Polarion ALM</name>
+    <name>requirements-inspector extension of Polarion ALM</name>
     <description>This is a Polarion extension which provides the ability to inspect requirements for their language quality</description>
     <url>https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector</url>
 
