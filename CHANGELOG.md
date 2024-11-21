@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0 (2024-11-21)
+
+
+### Miscellaneous Chores
+
+* release 3.0.0 ([#5](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/5)) ([6a9c772](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/6a9c7728c83bd6cc6803f1ac02dd4c6db0d2929e))
+
+## Changelog
+
 | Version | Changes                                                                                                            |
 |---------|--------------------------------------------------------------------------------------------------------------------|
 | v3.0.0  | Renamed quality_analysis to requirements_inspector                                                                 |
