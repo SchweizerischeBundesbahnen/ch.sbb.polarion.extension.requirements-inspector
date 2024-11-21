@@ -23,8 +23,8 @@ mvn clean package
 
 ## Installation to Polarion
 
-To install the extension to Polarion `ch.sbb.polarion.extension.<extension_name>-<version>.jar`
-should be copied to `<polarion_home>/polarion/extensions/ch.sbb.polarion.extension.<extension_name>/eclipse/plugins`
+To install the extension to Polarion `ch.sbb.polarion.extension.requirements-inspector-<version>.jar`
+should be copied to `<polarion_home>/polarion/extensions/ch.sbb.polarion.extension.requirements-inspector/eclipse/plugins`
 It can be done manually or automated using maven build:
 ```bash
 mvn clean install -P install-to-local-polarion
@@ -57,7 +57,7 @@ The following Parameters are available:
 - **inspectTitle** (Optional): If set to true the plugin will inspect the title (currently only Processword check) and doesn't check if set to false. If not defined the default value is true.
 - **inspectFields** (Optional): Comma-seperated ids of customfields that should be inspected. If not defined the default is empty.
 
-## Extension Configuration
+## Requirements-Inspector Configuration
 
 ### python_requirements_inspector as Service
 
@@ -76,11 +76,19 @@ docker run ... --add-host host.docker.internal:host-gateway ...
 
 The service will be available under `http://host.docker.internal:9081` in the container as shown in the property above.
 
+### Debug option
+
+Debug logging can be switched on (`true` value) and off (`false` value) with help of following property in file `polarion.properties`:
+
+```properties
+ch.sbb.polarion.extension.requirements-inspector.debug=true
+```
+
 ## Usage
 
 ### Custom Fields
 
-The Workitems types that shall be inspected need Custom Fields for the results. If not defined beforehand they will be added as String Fields after inspection and can be defined with the correct types afterwards. Following Custom Fields can
+The Workitems types that shall be inspected need Custom Fields for the results. If not defined beforehand they will be added as String Fields after inspection and can be defined with the correct types afterward. Following Custom Fields can
 be added:
 
 | ID                 | Name                | Type    |
@@ -99,16 +107,3 @@ Wait for your scheduled time or start it manually by:
 1. Open Monitor
 2. Select the Task with `[your task name]`
 3. Press Button "Execute now"
-
-## Changelog
-
-| Version | Changes                                                                                                            |
-|---------|--------------------------------------------------------------------------------------------------------------------|
-| v3.0.0  | Renamed quality_analysis to requirements_inspector                                                                 |
-| v2.1.0  | Usage of the new @Discoverable annotation to render about page information                                         |
-| v2.0.1  | Added polarion_quality_analysis_service to qualityanalysis.model.QualityAnalysisVersion                            |
-| v2.0.0  | Removed feature to run quality analysis through cli                                                                |
-| v1.6.1  | Added missing new configuration fields to about page                                                               |
-| v1.6.0  | About page help now is generating based on README.md. Added support for python_requirements_inspector as a Service |
-| v1.5.1  | Configuration properties in about page                                                                             |
-| v1.5.0  | Migration to generic extension                                                                                     |
