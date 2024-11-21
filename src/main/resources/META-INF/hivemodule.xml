@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module id="ch.sbb.polarion.extension.requirements_inspector" version="1.0.0">
+
+	<service-point id="requirementsInspectorJobUnitFactory" interface="com.polarion.platform.jobs.IJobUnitFactory">
+		<invoke-factory>
+			<construct class="ch.sbb.polarion.extension.requirements_inspector.RequirementsInspectorJobUnitFactory">
+			</construct>
+		</invoke-factory>
+	</service-point>
+	<contribution configuration-id="com.polarion.platform.jobs.configuration">
+		<jobUnitFactory name="InspectRequirements" factory="requirementsInspectorJobUnitFactory"/>
+	</contribution>
+
+	<!-- Administration -->
+
+	<contribution configuration-id="com.polarion.xray.webui.administrationPageExtenders">
+		<extender name="About"
+				  parentNodeName="Requirements Inspector"
+				  parentNodeIconUrl="/polarion/icons/default/topicIcons/documentsAndWiki.svg"
+				  iconUrl="/polarion/icons/default/topicIconsSmall/documentsAndWiki.svg"
+				  pageUrl="/polarion/requirements-inspector-admin/pages/about.jsp"
+				  projectScope="true"
+				  repositoryScope="true"/>
+		<extender name="REST API"
+				  parentNodeName="Requirements Inspector"
+				  parentNodeIconUrl="/polarion/icons/default/topicIcons/documentsAndWiki.svg"
+				  iconUrl="/polarion/icons/default/topicIconsSmall/documentsAndWiki.svg"
+				  pageUrl="/polarion/requirements-inspector/rest/swagger"
+				  projectScope="true"
+				  repositoryScope="true"/>
+	</contribution>
+</module>
