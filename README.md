@@ -39,7 +39,7 @@ Changes only take effect after restart of Polarion.
 
 This Extension must be added as Job to the Scheduler like this:
 
-    <job cronExpression="0 0 0 * * ?" id="InspectRequirements" name="[your task name]" scope="project:[your project]">
+    <job cronExpression="0 0 0 * * ?" id="requirementsInspection" name="[your task name]" scope="project:[your project]">
         <types>[WI Type ID], [WI Type ID], ...</types>
         <addMissingLanguage>[true/false]</addMissingLanguage>
         <filter>[additional filter query]</filter>
