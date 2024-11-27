@@ -1,5 +1,6 @@
 package ch.sbb.polarion.extension.requirements_inspector.service;
 
+import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspector;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import ch.sbb.polarion.extension.requirements_inspector.util.JsonUtil;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.VisibleForTesting;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,10 +37,11 @@ public class RequirementsInspectorService {
      * @param workItems the list of work items to inspect
      * @param context   context data
      */
-    public void inspectWorkitem(List<IWorkItem> workItems, Context context) {
+    public void inspectWorkitems(List<IWorkItem> workItems, Context context) {
 
         if (workItems.isEmpty()) {
-            LOGGER.info("There is no Workitems to inspect");
+            LOGGER.info("There are no Workitems to inspect");
+            JobLogger.getInstance().log("There are no Workitems to inspect");
             return;
         }
 
@@ -52,6 +55,37 @@ public class RequirementsInspectorService {
 
         LOGGER.info("Update Workitems with JSON Data");
         polarionService.updateWorkItemsFields(workItems, data);
+        logResults(data);
+    }
+
+    private static void logResults(List<Map<String, String>> data) {
+        JobLogger jobLogger = JobLogger.getInstance();
+        jobLogger.log("%sREQUIREMENTS INSPECTOR RESULTS", System.lineSeparator());
+        jobLogger.separator();
+        jobLogger.log("INDIVIDUAL RESULTS");
+        jobLogger.separator();
+        ConcurrentHashMap<String, Integer> numIssues = data.parallelStream().reduce(new ConcurrentHashMap<>(), (subtotal, element) -> {
+            subtotal.put("numComplex", subtotal.getOrDefault("numComplex", 0) + (element.get("smellComplex").equals("0") ? 0 : 1));
+            subtotal.put("numPassive", subtotal.getOrDefault("numPassive", 0) + (element.get("smellPassive").equals("0") ? 0 : 1));
+            subtotal.put("numWeakword", subtotal.getOrDefault("numWeakword", 0) + (element.get("smellWeakword").equals("0") ? 0 : 1));
+            subtotal.put("numComparative", subtotal.getOrDefault("numComparative", 0) + (element.get("smellComparative").equals("0") ? 0 : 1));
+            subtotal.put("numMissingProcessword", subtotal.getOrDefault("numMissingProcessword", 0) + (element.get("missingProcessword").equalsIgnoreCase("false") ? 0 : 1));
+            if (!element.get("smellDescription").isEmpty()) {
+                jobLogger.log("Workitem with ID %s has smellDescription %s", element.get("id"), element.get("smellDescription"));
+            }
+            return subtotal;
+        }, (m, m2) -> {
+            m.putAll(m2);
+            return m;
+        });
+        jobLogger.separator();
+        jobLogger.log("TOTALS");
+        jobLogger.separator();
+        jobLogger.log("Total smellComplex %d", numIssues.get("numComplex"));
+        jobLogger.log("Total smellPassive %d", numIssues.get("numPassive"));
+        jobLogger.log("Total smellWeakword %d", numIssues.get("numWeakword"));
+        jobLogger.log("Total smellComparative %d", numIssues.get("numComparative"));
+        jobLogger.log("Total missingProcessword %d", numIssues.get("numMissingProcessword"));
     }
 
     public static class Context {

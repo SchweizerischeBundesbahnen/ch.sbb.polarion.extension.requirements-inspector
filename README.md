@@ -17,6 +17,7 @@ The inspector is implemented in [scripts](https://github.com/SchweizerischeBunde
 ## Build
 
 This extension can be produced using maven:
+
 ```bash
 mvn clean package
 ```
@@ -26,9 +27,11 @@ mvn clean package
 To install the extension to Polarion `ch.sbb.polarion.extension.requirements-inspector-<version>.jar`
 should be copied to `<polarion_home>/polarion/extensions/ch.sbb.polarion.extension.requirements-inspector/eclipse/plugins`
 It can be done manually or automated using maven build:
+
 ```bash
 mvn clean install -P install-to-local-polarion
 ```
+
 For automated installation with maven env variable `POLARION_HOME` should be defined and point to folder where Polarion is installed.
 
 Changes only take effect after restart of Polarion.
@@ -65,10 +68,10 @@ This extension supports using `python_requirements_inspector` as a service. More
 This feature can be used by setting the following property in file `<POLARION_HOME>/etc/polarion.properties`:
 
 ```properties
-ch.sbb.polarion.extension.requirements-inspector.requirements.inspector.service=http://host.docker.internal:9081
+ch.sbb.polarion.extension.requirements-inspector.requirements.inspector.service=http://localhost:9081
 ```
 
-NOTE: If the requirements inspector service is running on the host machine's localhost, the following option can be added to docker polarion run:
+NOTE: If the requirements inspector service is running on the host machine's localhost and docker compose is not used, the following option can be added to docker polarion run:
 
 ```bash
 docker run ... --add-host host.docker.internal:host-gateway ...

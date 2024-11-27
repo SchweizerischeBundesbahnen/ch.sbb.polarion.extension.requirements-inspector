@@ -16,6 +16,7 @@ import com.polarion.platform.jobs.IProgressMonitor;
 import com.polarion.platform.jobs.spi.AbstractJobUnit;
 import lombok.Setter;
 import org.jetbrains.annotations.VisibleForTesting;
+import ch.sbb.polarion.extension.generic.util.JobLogger;
 
 import java.util.List;
 
@@ -63,9 +64,9 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
             for (String fieldId : StringUtil.stringToList(inspectFields, Consts.SEPARATOR).stream().filter(str -> !str.isEmpty()).toList()) {
                 context.addFieldToInspection(fieldId);
             }
-            requirementsInspectorService.inspectWorkitem(workItems, context);
+            requirementsInspectorService.inspectWorkitems(workItems, context);
 
-            return getStatusOK(null);
+            return getStatusOK(JobLogger.getInstance().getLog());
         } catch (Exception e) {
             return getStatusFailed(e.getMessage(), e);
         } finally {
