@@ -8,10 +8,10 @@ import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.core.util.logging.Logger;
 import org.jetbrains.annotations.VisibleForTesting;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,7 +64,7 @@ public class RequirementsInspectorService {
         jobLogger.separator();
         jobLogger.log("INDIVIDUAL RESULTS");
         jobLogger.separator();
-        ConcurrentHashMap<String, Integer> numIssues = data.parallelStream().reduce(new ConcurrentHashMap<>(), (subtotal, element) -> {
+        HashMap<String, Integer> numIssues = data.stream().reduce(new HashMap<>(), (subtotal, element) -> {
             subtotal.put("numComplex", subtotal.getOrDefault("numComplex", 0) + (element.get("smellComplex").equals("0") ? 0 : 1));
             subtotal.put("numPassive", subtotal.getOrDefault("numPassive", 0) + (element.get("smellPassive").equals("0") ? 0 : 1));
             subtotal.put("numWeakword", subtotal.getOrDefault("numWeakword", 0) + (element.get("smellWeakword").equals("0") ? 0 : 1));
