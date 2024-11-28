@@ -58,19 +58,20 @@ public class RequirementsInspectorService {
         logResults(data);
     }
 
-    private static void logResults(List<Map<String, String>> data) {
+    @VisibleForTesting
+    public static void logResults(List<Map<String, String>> data) {
         JobLogger jobLogger = JobLogger.getInstance();
         jobLogger.log("%sREQUIREMENTS INSPECTOR RESULTS", System.lineSeparator());
         jobLogger.separator();
         jobLogger.log("INDIVIDUAL RESULTS");
         jobLogger.separator();
         HashMap<String, Integer> numIssues = data.stream().reduce(new HashMap<>(), (subtotal, element) -> {
-            subtotal.put("numComplex", subtotal.getOrDefault("numComplex", 0) + (element.get("smellComplex").equals("0") ? 0 : 1));
-            subtotal.put("numPassive", subtotal.getOrDefault("numPassive", 0) + (element.get("smellPassive").equals("0") ? 0 : 1));
-            subtotal.put("numWeakword", subtotal.getOrDefault("numWeakword", 0) + (element.get("smellWeakword").equals("0") ? 0 : 1));
-            subtotal.put("numComparative", subtotal.getOrDefault("numComparative", 0) + (element.get("smellComparative").equals("0") ? 0 : 1));
-            subtotal.put("numMissingProcessword", subtotal.getOrDefault("numMissingProcessword", 0) + (element.get("missingProcessword").equalsIgnoreCase("false") ? 0 : 1));
-            if (!element.get("smellDescription").isEmpty()) {
+            subtotal.put("numComplex", subtotal.getOrDefault("numComplex", 0) + (element.getOrDefault("smellComplex", "0").equals("0") ? 0 : 1));
+            subtotal.put("numPassive", subtotal.getOrDefault("numPassive", 0) + (element.getOrDefault("smellPassive", "0").equals("0") ? 0 : 1));
+            subtotal.put("numWeakword", subtotal.getOrDefault("numWeakword", 0) + (element.getOrDefault("smellWeakword", "0").equals("0") ? 0 : 1));
+            subtotal.put("numComparative", subtotal.getOrDefault("numComparative", 0) + (element.getOrDefault("smellComparative", "0").equals("0") ? 0 : 1));
+            subtotal.put("numMissingProcessword", subtotal.getOrDefault("numMissingProcessword", 0) + (element.getOrDefault("missingProcessword", "false").equalsIgnoreCase("false") ? 0 : 1));
+            if (!element.getOrDefault("smellDescription", "").isEmpty()) {
                 jobLogger.log("Workitem with ID %s has smellDescription %s", element.get("id"), element.get("smellDescription"));
             }
             return subtotal;
