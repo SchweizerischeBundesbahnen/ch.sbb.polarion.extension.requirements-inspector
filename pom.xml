@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>ch.sbb.polarion.extension.requirements-inspector</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.1.0</version>
     <packaging>jar</packaging>
 
     <name>requirements-inspector extension of Polarion ALM</name>
