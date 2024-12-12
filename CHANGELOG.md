@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v3.0.1...v3.1.0) (2024-12-12)
+
+
+### Features
+
+* add icons and logging ([#14](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/14)) ([1ef34a4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/1ef34a47774e0395e92c01f399901ac72a07bc3f))
+
+
+### Bug Fixes
+
+* About Page section Extension Configuration Status ([#20](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/20)) ([db7c221](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/db7c22116c33a59f01dd1efdca8e0b98ab527335))
+* openapi.json generation ([#18](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/18)) ([dde321a](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/dde321a9ef984d172226a066dc5c92514f7937bb))
+
 ## [3.0.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v3.0.0...v3.0.1) (2024-11-26)
 
 
