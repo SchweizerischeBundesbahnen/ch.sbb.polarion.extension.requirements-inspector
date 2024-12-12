@@ -120,8 +120,7 @@
                     <resourcePackages>
                         <package>ch.sbb.polarion.extension.generic.rest.controller</package>
                         <package>ch.sbb.polarion.extension.generic.rest.model</package>
-                        <package>ch.sbb.polarion.extension.api.extender.rest.controller</package>
-                        <package>ch.sbb.polarion.extension.api.extender.rest.model</package>
+                        <package>ch.sbb.polarion.extension.requirements_inspector.rest</package>
                     </resourcePackages>
                 </configuration>
             </plugin>
