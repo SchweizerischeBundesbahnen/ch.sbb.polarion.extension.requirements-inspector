@@ -16,9 +16,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class RequirementsInspectorStatusProvider extends ConfigurationStatusProvider {
 
-    private static final String PYTHON = "Python Version";
-    private static final String REQUIREMENTS_INSPECTOR_VERSION = "Requirements Inspector Version";
-    private static final String REQUIREMENTS_INSPECTOR_SERVICE_VERSION = "Requirements Inspector Service Version";
+    private static final String REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_VERSION = "Python version in the docker image requirements-inspector-service";
+    private static final String REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_MODULE_VERSION = "python-requirements-inspector module version in the docker image requirements-inspector-service";
+    private static final String REQUIREMENTS_INSPECTOR_SERVICE_VERSION = "Docker image version of requirements-inspector-service";
 
     private final RequirementsInspectorServiceConnector requirementsInspectorServiceConnector;
 
@@ -36,15 +36,15 @@ public class RequirementsInspectorStatusProvider extends ConfigurationStatusProv
         try {
             RequirementsInspectorVersion requirementsInspectorVersion = requirementsInspectorServiceConnector.getRequirementsInspectorInfo();
             return List.of(
-                    createRequirementsInspectorStatus(PYTHON, requirementsInspectorVersion.python()),
-                    createRequirementsInspectorStatus(REQUIREMENTS_INSPECTOR_VERSION, requirementsInspectorVersion.polarionRequirementsInspector()),
+                    createRequirementsInspectorStatus(REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_VERSION, requirementsInspectorVersion.python()),
+                    createRequirementsInspectorStatus(REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_MODULE_VERSION, requirementsInspectorVersion.polarionRequirementsInspector()),
                     createRequirementsInspectorStatus(REQUIREMENTS_INSPECTOR_SERVICE_VERSION, requirementsInspectorVersion.polarionRequirementsInspectorService())
             );
         } catch (Exception e) {
             if (e.getMessage() == null) {
-                return List.of(new ConfigurationStatus(REQUIREMENTS_INSPECTOR_VERSION, Status.ERROR, "Unknown"));
+                return List.of(new ConfigurationStatus(REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_MODULE_VERSION, Status.ERROR, "Unknown"));
             }
-            return List.of(new ConfigurationStatus(REQUIREMENTS_INSPECTOR_VERSION, Status.ERROR, e.getMessage()));
+            return List.of(new ConfigurationStatus(REQUIREMENTS_INSPECTOR_SERVICE_PYTHON_MODULE_VERSION, Status.ERROR, e.getMessage()));
         }
     }
 
