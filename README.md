@@ -14,6 +14,10 @@
 This Extension provides the possibility to inspect WI descriptions and writes the feedback to the Custom Field "Smell Description" of each inspected WI.
 The inspector is implemented in [scripts](https://github.com/SchweizerischeBundesbahnen/python-requirements-inspector/).
 
+> [!IMPORTANT]
+> Only latest version of Polarion is supported.
+> Right now it is Polarion 2410.
+
 ## Build
 
 This extension can be produced using maven:
@@ -42,13 +46,16 @@ Changes only take effect after restart of Polarion.
 
 This Extension must be added as Job to the Scheduler like this:
 
-    <job cronExpression="0 0 0 * * ?" id="requirementsInspection" name="[your task name]" scope="project:[your project]">
-        <types>[WI Type ID], [WI Type ID], ...</types>
-        <addMissingLanguage>[true/false]</addMissingLanguage>
-        <filter>[additional filter query]</filter>
-        <inspectTitle>[true/false]</inspectTitle>
-        <inspectFields>[field ID], [field ID], ...</inspectFields>
-    </job>
+```xml
+
+<job cronExpression="0 0 0 * * ?" id="requirementsInspection" name="[your task name]" scope="project:[your project]">
+    <types>[WI Type ID], [WI Type ID], ...</types>
+    <addMissingLanguage>[true/false]</addMissingLanguage>
+    <filter>[additional filter query]</filter>
+    <inspectTitle>[true/false]</inspectTitle>
+    <inspectFields>[field ID], [field ID], ...</inspectFields>
+</job>
+```
 
 All values in brackets needs to be changed to your use case.
 
