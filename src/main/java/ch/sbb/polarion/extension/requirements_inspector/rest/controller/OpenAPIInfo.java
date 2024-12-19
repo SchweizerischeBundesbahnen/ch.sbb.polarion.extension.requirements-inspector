@@ -1,4 +1,4 @@
-package ch.sbb.polarion.extension.requirements_inspector.rest;
+package ch.sbb.polarion.extension.requirements_inspector.rest.controller;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.License;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "REQUIREMENTS INSPECTOR REST API",
+                title = "Requirements Inspector REST API",
                 version = "v1",
                 description = "",
                 termsOfService = "",
