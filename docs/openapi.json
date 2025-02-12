@@ -1,113 +1,253 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "Requirements Inspector REST API",
-    "version": "v1"
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Requirements Inspector REST API",
+    "version" : "v1"
   },
-  "paths": {
-    "/api/context": {
-      "get": {
-        "operationId": "getContext",
-        "responses": {
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Context"
+  "paths" : {
+    "/api/context" : {
+      "get" : {
+        "operationId" : "getContext",
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Context"
                 }
               }
             },
-            "description": "Context information"
+            "description" : "Context information"
           }
         },
-        "summary": "Returns basic context information of Polarion's extension",
-        "tags": [
-          "Extension Information"
-        ]
+        "summary" : "Returns basic context information of Polarion's extension",
+        "tags" : [ "Extension Information" ]
       }
     },
-    "/api/version": {
-      "get": {
-        "operationId": "getVersion",
-        "responses": {
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Version"
+    "/api/inspect/requirement" : {
+      "post" : {
+        "operationId" : "inspectRequirement",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WorkItem"
+              }
+            }
+          },
+          "description" : "Workitem to inspect",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkItemResponse"
                 }
               }
             },
-            "description": "Version information"
+            "description" : "Return value with smell descriptions/counts",
+            "headers" : {
+              "version" : {
+                "description" : "Versions of service and python",
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
+                },
+                "style" : "simple"
+              }
+            }
           }
         },
-        "summary": "Returns version of Polarion's extension",
-        "tags": [
-          "Extension Information"
-        ]
+        "summary" : "Inspect a single workitem",
+        "tags" : [ "Requirements Inspection" ]
+      }
+    },
+    "/api/inspect/requirements" : {
+      "post" : {
+        "operationId" : "inspectRequirements",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/WorkItem"
+                }
+              }
+            }
+          },
+          "description" : "List of workitems to inspect",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/WorkItemResponse"
+                  }
+                }
+              }
+            },
+            "description" : "Return value with smell descriptions/counts",
+            "headers" : {
+              "version" : {
+                "description" : "Versions of service and python",
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
+                },
+                "style" : "simple"
+              }
+            }
+          }
+        },
+        "summary" : "Inspect multiple workitems",
+        "tags" : [ "Requirements Inspection" ]
+      }
+    },
+    "/api/version" : {
+      "get" : {
+        "operationId" : "getVersion",
+        "responses" : {
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Version"
+                }
+              }
+            },
+            "description" : "Version information"
+          }
+        },
+        "summary" : "Returns version of Polarion's extension",
+        "tags" : [ "Extension Information" ]
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Context": {
-        "description": "Represents the context for building URLs related to Polarion services",
-        "properties": {
-          "baseUrl": {
-            "description": "Returns the base URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter",
-            "type": "string"
+  "components" : {
+    "schemas" : {
+      "Context" : {
+        "type" : "object",
+        "description" : "Represents the context for building URLs related to Polarion services",
+        "properties" : {
+          "baseUrl" : {
+            "type" : "string",
+            "description" : "Returns the base URL constructed with the extension context",
+            "example" : "/polarion/pdf-exporter"
           },
-          "extensionContext": {
-            "description": "The extension context used as a base for URL construction",
-            "example": "pdf-exporter",
-            "type": "string"
+          "extensionContext" : {
+            "type" : "string",
+            "description" : "The extension context used as a base for URL construction",
+            "example" : "pdf-exporter"
           },
-          "restUrl": {
-            "description": "Returns the REST API URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter/rest",
-            "type": "string"
+          "restUrl" : {
+            "type" : "string",
+            "description" : "Returns the REST API URL constructed with the extension context",
+            "example" : "/polarion/pdf-exporter/rest"
           },
-          "swaggerUiUrl": {
-            "description": "Returns the Swagger UI URL for the REST API",
-            "type": "string"
+          "swaggerUiUrl" : {
+            "type" : "string",
+            "description" : "Returns the Swagger UI URL for the REST API"
           }
-        },
-        "type": "object"
+        }
       },
-      "Version": {
-        "description": "Details about the software version",
-        "properties": {
-          "automaticModuleName": {
-            "description": "The automatic module name",
-            "type": "string"
+      "RequirementsInspectorVersion" : {
+        "type" : "object",
+        "properties" : {
+          "polarion_requirements_inspector" : {
+            "type" : "string"
           },
-          "bundleBuildTimestamp": {
-            "description": "The build timestamp of the bundle",
-            "type": "string"
+          "polarion_requirements_inspector_service" : {
+            "type" : "string"
           },
-          "bundleName": {
-            "description": "The name of the bundle",
-            "type": "string"
-          },
-          "bundleVendor": {
-            "description": "The vendor of the bundle",
-            "type": "string"
-          },
-          "bundleVersion": {
-            "description": "The version of the bundle",
-            "type": "string"
-          },
-          "projectURL": {
-            "description": "The project URL",
-            "type": "string"
-          },
-          "supportEmail": {
-            "description": "Support email for the bundle",
-            "type": "string"
+          "python" : {
+            "type" : "string"
           }
-        },
-        "type": "object"
+        }
+      },
+      "Version" : {
+        "type" : "object",
+        "description" : "Details about the software version",
+        "properties" : {
+          "automaticModuleName" : {
+            "type" : "string",
+            "description" : "The automatic module name"
+          },
+          "bundleBuildTimestamp" : {
+            "type" : "string",
+            "description" : "The build timestamp of the bundle"
+          },
+          "bundleName" : {
+            "type" : "string",
+            "description" : "The name of the bundle"
+          },
+          "bundleVendor" : {
+            "type" : "string",
+            "description" : "The vendor of the bundle"
+          },
+          "bundleVersion" : {
+            "type" : "string",
+            "description" : "The version of the bundle"
+          },
+          "projectURL" : {
+            "type" : "string",
+            "description" : "The project URL"
+          },
+          "supportEmail" : {
+            "type" : "string",
+            "description" : "Support email for the bundle"
+          }
+        }
+      },
+      "WorkItem" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "language" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          }
+        }
+      },
+      "WorkItemResponse" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "language" : {
+            "type" : "string"
+          },
+          "missingProcessword" : {
+            "type" : "boolean"
+          },
+          "smellComparative" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "smellComplex" : {
+            "type" : "string"
+          },
+          "smellDescription" : {
+            "type" : "string"
+          },
+          "smellPassive" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "smellWeakword" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       }
     }
   }

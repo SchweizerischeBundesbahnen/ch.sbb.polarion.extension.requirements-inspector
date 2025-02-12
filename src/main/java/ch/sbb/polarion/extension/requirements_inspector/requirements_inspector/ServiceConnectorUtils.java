@@ -22,7 +22,7 @@ public final class ServiceConnectorUtils {
     public static String inspectWorkitems(List<Map<String, String>> input, Client client) {
         WebTarget webTarget = client.target(RequirementsInspectorExtensionConfiguration.getInstance().getRequirementsInspectorService() + "/inspect/workitems");
         try {
-            try (Response response = webTarget.request("application/json").post(Entity.entity(JsonUtil.writeInputJson(input), MediaType.APPLICATION_JSON_TYPE))) {
+            try (Response response = webTarget.request(MediaType.APPLICATION_JSON).post(Entity.entity(JsonUtil.writeInputJson(input), MediaType.APPLICATION_JSON_TYPE))) {
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                     throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
                 }
@@ -37,7 +37,7 @@ public final class ServiceConnectorUtils {
         WebTarget webTarget = client.target(RequirementsInspectorExtensionConfiguration.getInstance().getRequirementsInspectorService() + "/version");
         try {
 
-            try (Response response = webTarget.request("application/json").get()) {
+            try (Response response = webTarget.request(MediaType.APPLICATION_JSON).get()) {
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                     throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
                 }
