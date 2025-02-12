@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RequirementsInspectorServiceConnector implements RequirementsInspector {
     @Override
-    public String inspectWorkitems(List<Map<String, String>> input) {
+    public List<Map<String, String>> inspectWorkitems(List<Map<String, String>> input) {
         Client client = ClientBuilder.newClient();
         return ServiceConnectorUtils.inspectWorkitems(input, client);
     }

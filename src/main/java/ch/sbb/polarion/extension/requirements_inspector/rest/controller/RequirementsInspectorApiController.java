@@ -24,4 +24,7 @@ public class RequirementsInspectorApiController extends RequirementsInspectorInt
     public Response inspectRequirement(Map<String, String> workItem) {
         return this.polarionService.callPrivileged(() -> super.inspectRequirement(workItem));
     }
+
+    @Override
+    public Response getVersion(){ return this.polarionService.callPrivileged(super::getVersion);}
 }

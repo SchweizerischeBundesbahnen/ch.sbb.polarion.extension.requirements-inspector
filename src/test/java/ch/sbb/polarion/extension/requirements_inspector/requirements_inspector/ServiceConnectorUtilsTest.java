@@ -51,7 +51,7 @@ class ServiceConnectorUtilsTest {
         when(response.readEntity(String.class)).thenReturn("[]");
         setupPost(response);
 
-        assertEquals("[]", ServiceConnectorUtils.inspectWorkitems(workItems, client));
+        assertEquals(List.of(), ServiceConnectorUtils.inspectWorkitems(workItems, client));
     }
 
     @Test

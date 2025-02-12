@@ -46,8 +46,7 @@ public class RequirementsInspectorService {
         }
 
         List<Map<String, String>> inputData = polarionService.getFieldData(context.fields, workItems);
-        String output = requirementsInspector.inspectWorkitems(inputData);
-        List<Map<String, String>> data = JsonUtil.parseOutputJson(output);
+        List<Map<String, String>> data = requirementsInspector.inspectWorkitems(inputData);
 
         if (!context.addMissingLanguage) {
             data.forEach(item -> item.remove(Consts.LANGUAGE));

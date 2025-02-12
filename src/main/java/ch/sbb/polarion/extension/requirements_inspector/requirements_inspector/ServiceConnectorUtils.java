@@ -19,14 +19,15 @@ public final class ServiceConnectorUtils {
     private ServiceConnectorUtils() {
     }
 
-    public static String inspectWorkitems(List<Map<String, String>> input, Client client) {
+    public static List<Map<String, String>> inspectWorkitems(List<Map<String, String>> input, Client client) {
         WebTarget webTarget = client.target(RequirementsInspectorExtensionConfiguration.getInstance().getRequirementsInspectorService() + "/inspect/workitems");
         try {
             try (Response response = webTarget.request(MediaType.APPLICATION_JSON).post(Entity.entity(JsonUtil.writeInputJson(input), MediaType.APPLICATION_JSON_TYPE))) {
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                     throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
                 }
-                return response.readEntity(String.class);
+                String content = response.readEntity(String.class);
+                return JsonUtil.parseOutputJson(content);
             }
         } finally {
             client.close();

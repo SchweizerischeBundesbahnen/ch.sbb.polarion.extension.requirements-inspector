@@ -43,16 +43,33 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/WorkItemResponse"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/WorkItemResponse"
+                  }
                 }
               }
             },
             "description" : "Return value with smell descriptions/counts",
             "headers" : {
-              "version" : {
-                "description" : "Versions of service and python",
+              "polarion_requirements_inspector_service_version" : {
+                "description" : "Version of requirements-inspector service",
                 "schema" : {
-                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
+                  "type" : "string"
+                },
+                "style" : "simple"
+              },
+              "polarion_requirements_inspector_version" : {
+                "description" : "Version of requirements-inspector",
+                "schema" : {
+                  "type" : "string"
+                },
+                "style" : "simple"
+              },
+              "python_version" : {
+                "description" : "Version of requirements-inspector service python",
+                "schema" : {
+                  "type" : "string"
                 },
                 "style" : "simple"
               }
@@ -94,10 +111,24 @@
             },
             "description" : "Return value with smell descriptions/counts",
             "headers" : {
-              "version" : {
-                "description" : "Versions of service and python",
+              "polarion_requirements_inspector_service_version" : {
+                "description" : "Version of requirements-inspector service",
                 "schema" : {
-                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
+                  "type" : "string"
+                },
+                "style" : "simple"
+              },
+              "polarion_requirements_inspector_version" : {
+                "description" : "Version of requirements-inspector",
+                "schema" : {
+                  "type" : "string"
+                },
+                "style" : "simple"
+              },
+              "python_version" : {
+                "description" : "Version of requirements-inspector service python",
+                "schema" : {
+                  "type" : "string"
                 },
                 "style" : "simple"
               }
@@ -105,6 +136,24 @@
           }
         },
         "summary" : "Inspect multiple workitems",
+        "tags" : [ "Requirements Inspection" ]
+      }
+    },
+    "/api/inspector/version" : {
+      "get" : {
+        "operationId" : "getVersion_1",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get the requirement-inspector's versions",
         "tags" : [ "Requirements Inspection" ]
       }
     },
