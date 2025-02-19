@@ -3,7 +3,6 @@ package ch.sbb.polarion.extension.requirements_inspector.service;
 import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspector;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
-import ch.sbb.polarion.extension.requirements_inspector.util.JsonUtil;
 import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.core.util.logging.Logger;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -28,33 +27,6 @@ public class RequirementsInspectorService {
     public RequirementsInspectorService(PolarionService polarionService, RequirementsInspector requirementsInspector) {
         this.polarionService = polarionService;
         this.requirementsInspector = requirementsInspector;
-    }
-
-    /**
-     * Inspects work items by executing a Python script. Populates
-     * each work item with the inspection results.
-     *
-     * @param workItems the list of work items to inspect
-     * @param context   context data
-     */
-    public void inspectWorkitems(List<IWorkItem> workItems, Context context) {
-
-        if (workItems.isEmpty()) {
-            LOGGER.info("There are no Workitems to inspect");
-            JobLogger.getInstance().log("There are no Workitems to inspect");
-            return;
-        }
-
-        List<Map<String, String>> inputData = polarionService.getFieldData(context.fields, workItems);
-        List<Map<String, String>> data = requirementsInspector.inspectWorkitems(inputData);
-
-        if (!context.addMissingLanguage) {
-            data.forEach(item -> item.remove(Consts.LANGUAGE));
-        }
-
-        LOGGER.info("Update Workitems with JSON Data");
-        polarionService.updateWorkItemsFields(workItems, data);
-        logResults(data);
     }
 
     @VisibleForTesting
@@ -86,6 +58,42 @@ public class RequirementsInspectorService {
         jobLogger.log("Total smellWeakword %d", numIssues.get("numWeakword"));
         jobLogger.log("Total smellComparative %d", numIssues.get("numComparative"));
         jobLogger.log("Total missingProcessword %d", numIssues.get("numMissingProcessword"));
+    }
+
+    /**
+     * Inspects work items by executing a Python script. Populates
+     * each work item with the inspection results.
+     *
+     * @param workItems the list of work items to inspect
+     * @param context   context data
+     */
+    public List<Map<String, String>> inspectWorkItems(List<IWorkItem> workItems, Context context) {
+
+        if (workItems.isEmpty()) {
+            LOGGER.info("There are no Workitems to inspect");
+            JobLogger.getInstance().log("There are no Workitems to inspect");
+            return List.of();
+        }
+
+        List<Map<String, String>> inputData = polarionService.getFieldData(context.fields, workItems);
+        List<Map<String, String>> data = requirementsInspector.inspectWorkitems(inputData);
+
+        if (!context.addMissingLanguage) {
+            data.forEach(item -> item.remove(Consts.LANGUAGE));
+        }
+
+        LOGGER.info("Update Workitems with JSON Data");
+        polarionService.updateWorkItemsFields(workItems, data);
+        logResults(data);
+        return data;
+    }
+
+    public Context getContext(boolean ignoreInspectTitle, boolean addMissingLanguage, List<String> addFields) {
+        RequirementsInspectorService.Context context =
+                new RequirementsInspectorService.Context(
+                        ignoreInspectTitle, addMissingLanguage);
+        addFields.forEach(context::addFieldToInspection);
+        return context;
     }
 
     public static class Context {

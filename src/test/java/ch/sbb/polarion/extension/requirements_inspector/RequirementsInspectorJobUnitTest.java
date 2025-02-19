@@ -62,7 +62,7 @@ class RequirementsInspectorJobUnitTest {
             verify(trackerService, times(1)).queryWorkItems(any(), eq("NOT HAS_VALUE:resolution AND type:(type1 type2)"), eq("id"));
 
             ArgumentCaptor<RequirementsInspectorService.Context> contextArgument = ArgumentCaptor.forClass(RequirementsInspectorService.Context.class);
-            verify(mockedInspectorService.constructed().get(0)).inspectWorkitems(any(), contextArgument.capture());
+            verify(mockedInspectorService.constructed().get(0)).inspectWorkItems(any(), contextArgument.capture());
 
             assertTrue(contextArgument.getValue().getFields().containsAll(Arrays.asList("field1", "field2")));
             assertEquals("", status.getMessage());

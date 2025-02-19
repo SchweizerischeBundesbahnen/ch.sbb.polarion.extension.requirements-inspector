@@ -34,7 +34,7 @@ class RequirementsInspectorServiceTest {
     assertDoesNotThrow(
         () ->
             new RequirementsInspectorService(polarionService, executor)
-                .inspectWorkitems(new ArrayList<>(), context));
+                .inspectWorkItems(new ArrayList<>(), context));
 
     // check that none of these methods were called
     verify(polarionService, times(0)).getFieldData(any(), any());
@@ -56,7 +56,7 @@ class RequirementsInspectorServiceTest {
     context.addFieldToInspection("oneMoreField");
     context.addFieldToInspection("oneMoreFieldTwo");
     new RequirementsInspectorService(polarionService, executor)
-        .inspectWorkitems(Collections.singletonList(mock(IWorkItem.class)), context);
+        .inspectWorkItems(Collections.singletonList(mock(IWorkItem.class)), context);
 
     ArgumentCaptor<Set<String>> inputItemsCaptor = ArgumentCaptor.forClass(Set.class);
     verify(polarionService).getFieldData(inputItemsCaptor.capture(), any());
@@ -85,7 +85,7 @@ class RequirementsInspectorServiceTest {
     RequirementsInspectorService.Context context =
         new RequirementsInspectorService.Context(false, false);
     new RequirementsInspectorService(polarionService, executor)
-        .inspectWorkitems(Collections.singletonList(mock(IWorkItem.class)), context);
+        .inspectWorkItems(Collections.singletonList(mock(IWorkItem.class)), context);
 
     ArgumentCaptor<Set<String>> inputItemsCaptor = ArgumentCaptor.forClass(Set.class);
     verify(polarionService).getFieldData(inputItemsCaptor.capture(), any());

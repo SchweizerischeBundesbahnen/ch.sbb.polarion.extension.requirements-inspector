@@ -24,14 +24,14 @@
         "tags" : [ "Extension Information" ]
       }
     },
-    "/api/inspect/requirement" : {
+    "/api/inspect/workitem" : {
       "post" : {
         "operationId" : "inspectRequirement",
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/WorkItem"
+                "$ref" : "#/components/schemas/InspectWorkItemParams"
               }
             }
           },
@@ -43,10 +43,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/WorkItemResponse"
-                  }
+                  "$ref" : "#/components/schemas/WorkItemResponse"
                 }
               }
             },
@@ -80,17 +77,14 @@
         "tags" : [ "Requirements Inspection" ]
       }
     },
-    "/api/inspect/requirements" : {
+    "/api/inspect/workitems" : {
       "post" : {
         "operationId" : "inspectRequirements",
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/WorkItem"
-                }
+                "$ref" : "#/components/schemas/InspectWorkItemsParams"
               }
             }
           },
@@ -136,24 +130,6 @@
           }
         },
         "summary" : "Inspect multiple workitems",
-        "tags" : [ "Requirements Inspection" ]
-      }
-    },
-    "/api/inspector/version" : {
-      "get" : {
-        "operationId" : "getVersion_1",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequirementsInspectorVersion"
-                }
-              }
-            }
-          }
-        },
-        "summary" : "Get the requirement-inspector's versions",
         "tags" : [ "Requirements Inspection" ]
       }
     },
@@ -204,16 +180,51 @@
           }
         }
       },
-      "RequirementsInspectorVersion" : {
+      "InspectWorkItemParams" : {
         "type" : "object",
         "properties" : {
-          "polarion_requirements_inspector" : {
+          "addFields" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "addMissingLanguage" : {
+            "type" : "boolean"
+          },
+          "id" : {
             "type" : "string"
           },
-          "polarion_requirements_inspector_service" : {
-            "type" : "string"
+          "ignoreInspectTitle" : {
+            "type" : "boolean"
           },
-          "python" : {
+          "projectId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "InspectWorkItemsParams" : {
+        "type" : "object",
+        "properties" : {
+          "addFields" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "addMissingLanguage" : {
+            "type" : "boolean"
+          },
+          "ids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "ignoreInspectTitle" : {
+            "type" : "boolean"
+          },
+          "projectId" : {
             "type" : "string"
           }
         }
@@ -249,20 +260,6 @@
           "supportEmail" : {
             "type" : "string",
             "description" : "Support email for the bundle"
-          }
-        }
-      },
-      "WorkItem" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "language" : {
-            "type" : "string"
-          },
-          "title" : {
-            "type" : "string"
           }
         }
       },

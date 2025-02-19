@@ -64,7 +64,7 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
             for (String fieldId : StringUtil.stringToList(inspectFields, Consts.SEPARATOR).stream().filter(str -> !str.isEmpty()).toList()) {
                 context.addFieldToInspection(fieldId);
             }
-            requirementsInspectorService.inspectWorkitems(workItems, context);
+            requirementsInspectorService.inspectWorkItems(workItems, context);
 
             return getStatusOK(JobLogger.getInstance().getLog());
         } catch (Exception e) {
@@ -89,5 +89,4 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
         // Return the complete query string
         return query;
     }
-
 }
