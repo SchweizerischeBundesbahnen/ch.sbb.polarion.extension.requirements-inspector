@@ -77,12 +77,7 @@ public class PolarionService extends ch.sbb.polarion.extension.generic.service.P
         });
   }
 
-  public @NotNull IWorkItem getWorkItem(@NotNull String projectId, @NotNull String workItemId) {
-    ITrackerProject trackerProject = this.getTrackerProject(projectId);
-    return trackerProject.getWorkItem(workItemId);
-  }
-
-  public List<IWorkItem> getWorkItems(String projectId, List<String> workItemIds) {
+  public List<IWorkItem> getWorkItems(@NotNull String projectId, @NotNull List<String> workItemIds) {
     ITrackerProject trackerProject = this.getTrackerProject(projectId);
     return workItemIds.stream().map(trackerProject::getWorkItem).toList();
   }

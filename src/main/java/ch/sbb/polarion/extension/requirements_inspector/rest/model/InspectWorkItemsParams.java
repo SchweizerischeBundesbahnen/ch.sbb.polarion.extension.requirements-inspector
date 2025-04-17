@@ -5,6 +5,6 @@ import java.util.List;
 public record InspectWorkItemsParams(
         String projectId,
         List<String> ids,
-        List<String> addFields,
+        List<String> inspectFields,
         boolean ignoreInspectTitle,
         boolean addMissingLanguage) {}

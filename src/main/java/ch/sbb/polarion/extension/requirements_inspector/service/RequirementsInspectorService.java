@@ -5,6 +5,7 @@ import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.R
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.core.util.logging.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.HashMap;
@@ -88,7 +89,7 @@ public class RequirementsInspectorService {
         return data;
     }
 
-    public Context getContext(boolean ignoreInspectTitle, boolean addMissingLanguage, List<String> addFields) {
+    public static Context getContext(boolean ignoreInspectTitle, boolean addMissingLanguage, @NotNull List<String> addFields) {
         RequirementsInspectorService.Context context =
                 new RequirementsInspectorService.Context(
                         ignoreInspectTitle, addMissingLanguage);
