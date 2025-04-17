@@ -7,4 +7,5 @@ public record InspectWorkItemsParams(
         List<String> ids,
         List<String> inspectFields,
         boolean ignoreInspectTitle,
-        boolean addMissingLanguage) {}
+        boolean addMissingLanguage) {
+}

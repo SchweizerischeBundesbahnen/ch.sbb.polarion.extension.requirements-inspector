@@ -24,89 +24,90 @@ import java.util.Set;
 @SuppressWarnings("squid:S2176") // class named same as parent intentionally
 public class PolarionService extends ch.sbb.polarion.extension.generic.service.PolarionService {
 
-  private static final Logger LOGGER = Logger.getLogger(PolarionService.class);
+    private static final Logger LOGGER = Logger.getLogger(PolarionService.class);
 
-  public PolarionService() {}
-
-  public PolarionService(
-      @NotNull ITrackerService trackerService,
-      @NotNull IProjectService projectService,
-      @NotNull ISecurityService securityService,
-      @NotNull IPlatformService platformService,
-      @NotNull IRepositoryService repositoryService) {
-    super(trackerService, projectService, securityService, platformService, repositoryService);
-  }
-
-  @SneakyThrows
-  public List<Map<String, String>> getFieldData(Set<String> fields, List<IWorkItem> workItems) {
-    return workItems.stream()
-        .map(
-            workItem -> {
-              Map<String, String> map = new HashMap<>();
-              map.put(Consts.ID, workItem.getId());
-              fields.forEach(fieldId -> map.put(fieldId, getWorkItemFieldData(workItem, fieldId)));
-              return map;
-            })
-        .toList();
-  }
-
-  @SneakyThrows
-  public void updateWorkItemsFields(List<IWorkItem> workItems, List<Map<String, String>> dataMap) {
-    for (IWorkItem workItem : workItems) {
-      String workItemId = workItem.getId();
-      dataMap.stream()
-          .filter(map -> Objects.equals(workItemId, map.get(Consts.ID)))
-          .findFirst()
-          .ifPresent(
-              fields ->
-                  fields.forEach(
-                      (key, value) -> {
-                        if (!Objects.equals(Consts.ID, key)) { // do not process ID field
-                          LOGGER.info(
-                              "update workItem: %s custom field '%s' with value: '%s'"
-                                  .formatted(workItemId, key, value));
-                          setFieldValue(workItem, key, value);
-                        }
-                      }));
+    public PolarionService() {
     }
 
-    TransactionalExecutor.executeInWriteTransaction(
-        writeTransaction -> {
-          workItems.forEach(IWorkItem::save);
-          return true;
-        });
-  }
-
-  public List<IWorkItem> getWorkItems(@NotNull String projectId, @NotNull List<String> workItemIds) {
-    ITrackerProject trackerProject = this.getTrackerProject(projectId);
-    return workItemIds.stream().map(trackerProject::getWorkItem).toList();
-  }
-
-  private String getWorkItemFieldData(IWorkItem workItem, String workItemFieldId) {
-    return switch (workItemFieldId) {
-      case Consts.ID -> workItem.getId();
-      case Consts.TITLE -> workItem.getTitle();
-      case Consts.DESCRIPTION -> getTextAsString(workItem.getDescription());
-      default -> getWorkItemCustomFieldContent(workItem, workItemFieldId);
-    };
-  }
-
-  private String getWorkItemCustomFieldContent(IWorkItem workItem, String customFieldId) {
-    Object customField = workItem.getCustomField(customFieldId);
-    String fieldContent = "";
-
-    if (customField instanceof String string) {
-      fieldContent = string;
-    } else if (customField instanceof Text text) {
-      fieldContent = getTextAsString(text);
-    } else if (customField instanceof EnumOption option) {
-      fieldContent = option.getId();
+    public PolarionService(
+            @NotNull ITrackerService trackerService,
+            @NotNull IProjectService projectService,
+            @NotNull ISecurityService securityService,
+            @NotNull IPlatformService platformService,
+            @NotNull IRepositoryService repositoryService) {
+        super(trackerService, projectService, securityService, platformService, repositoryService);
     }
 
-    return fieldContent;
-  }
+    @SneakyThrows
+    public List<Map<String, String>> getFieldData(Set<String> fields, List<IWorkItem> workItems) {
+        return workItems.stream()
+                .map(
+                        workItem -> {
+                            Map<String, String> map = new HashMap<>();
+                            map.put(Consts.ID, workItem.getId());
+                            fields.forEach(fieldId -> map.put(fieldId, getWorkItemFieldData(workItem, fieldId)));
+                            return map;
+                        })
+                .toList();
+    }
 
-  private String getTextAsString(Text fieldContent) {
-    return fieldContent == null ? "" : fieldContent.convertToPlainText().getContent();
-  }
+    @SneakyThrows
+    public void updateWorkItemsFields(List<IWorkItem> workItems, List<Map<String, String>> dataMap) {
+        for (IWorkItem workItem : workItems) {
+            String workItemId = workItem.getId();
+            dataMap.stream()
+                    .filter(map -> Objects.equals(workItemId, map.get(Consts.ID)))
+                    .findFirst()
+                    .ifPresent(
+                            fields ->
+                                    fields.forEach(
+                                            (key, value) -> {
+                                                if (!Objects.equals(Consts.ID, key)) { // do not process ID field
+                                                    LOGGER.info(
+                                                            "update workItem: %s custom field '%s' with value: '%s'"
+                                                                    .formatted(workItemId, key, value));
+                                                    setFieldValue(workItem, key, value);
+                                                }
+                                            }));
+        }
+
+        TransactionalExecutor.executeInWriteTransaction(
+                writeTransaction -> {
+                    workItems.forEach(IWorkItem::save);
+                    return true;
+                });
+    }
+
+    public List<IWorkItem> getWorkItems(@NotNull String projectId, @NotNull List<String> workItemIds) {
+        ITrackerProject trackerProject = this.getTrackerProject(projectId);
+        return workItemIds.stream().map(trackerProject::getWorkItem).toList();
+    }
+
+    private String getWorkItemFieldData(IWorkItem workItem, String workItemFieldId) {
+        return switch (workItemFieldId) {
+            case Consts.ID -> workItem.getId();
+            case Consts.TITLE -> workItem.getTitle();
+            case Consts.DESCRIPTION -> getTextAsString(workItem.getDescription());
+            default -> getWorkItemCustomFieldContent(workItem, workItemFieldId);
+        };
+    }
+
+    private String getWorkItemCustomFieldContent(IWorkItem workItem, String customFieldId) {
+        Object customField = workItem.getCustomField(customFieldId);
+        String fieldContent = "";
+
+        if (customField instanceof String string) {
+            fieldContent = string;
+        } else if (customField instanceof Text text) {
+            fieldContent = getTextAsString(text);
+        } else if (customField instanceof EnumOption option) {
+            fieldContent = option.getId();
+        }
+
+        return fieldContent;
+    }
+
+    private String getTextAsString(Text fieldContent) {
+        return fieldContent == null ? "" : fieldContent.convertToPlainText().getContent();
+    }
 }

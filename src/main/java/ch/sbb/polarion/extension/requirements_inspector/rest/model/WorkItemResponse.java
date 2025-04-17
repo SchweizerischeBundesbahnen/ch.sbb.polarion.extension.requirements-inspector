@@ -8,4 +8,5 @@ public record WorkItemResponse(
         int smellWeakword,
         int smellComparative,
         boolean missingProcessword,
-        String smellDescription) {}
+        String smellDescription) {
+}

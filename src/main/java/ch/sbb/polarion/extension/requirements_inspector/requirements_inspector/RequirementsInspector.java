@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface RequirementsInspector {
     List<Map<String, String>> inspectWorkitems(List<Map<String, String>> input);
+
     @SuppressWarnings("unused")
     RequirementsInspectorVersion getRequirementsInspectorInfo();
 }

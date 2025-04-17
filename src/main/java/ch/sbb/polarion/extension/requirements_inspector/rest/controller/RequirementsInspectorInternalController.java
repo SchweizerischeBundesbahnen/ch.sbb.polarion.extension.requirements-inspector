@@ -35,101 +35,103 @@ import java.util.Map;
 @SuppressWarnings("java:S1200")
 public class RequirementsInspectorInternalController {
 
-  private final PolarionService polarionService;
-  private final RequirementsInspector requirementsInspector;
-  private final RequirementsInspectorService requirementsInspectorService;
+    private final PolarionService polarionService;
+    private final RequirementsInspector requirementsInspector;
+    private final RequirementsInspectorService requirementsInspectorService;
 
-  public RequirementsInspectorInternalController() {
-    this.polarionService = new PolarionService();
-    this.requirementsInspector = new RequirementsInspectorServiceConnector();
-    this.requirementsInspectorService =
-        new RequirementsInspectorService(this.polarionService, this.requirementsInspector);
-  }
+    public RequirementsInspectorInternalController() {
+        this.polarionService = new PolarionService();
+        this.requirementsInspector = new RequirementsInspectorServiceConnector();
+        this.requirementsInspectorService =
+                new RequirementsInspectorService(this.polarionService, this.requirementsInspector);
+    }
 
-  @VisibleForTesting
-  @SuppressWarnings("unused")
-  public RequirementsInspectorInternalController(
-      PolarionService polarionService, RequirementsInspectorServiceConnector requirementsInspector, RequirementsInspectorService requirementsInspectorService) {
-    this.polarionService = polarionService;
-    this.requirementsInspector = requirementsInspector;
-    this.requirementsInspectorService = requirementsInspectorService;
-  }
+    @VisibleForTesting
+    @SuppressWarnings("unused")
+    public RequirementsInspectorInternalController(
+            PolarionService polarionService,
+            RequirementsInspectorServiceConnector requirementsInspector,
+            RequirementsInspectorService requirementsInspectorService) {
+        this.polarionService = polarionService;
+        this.requirementsInspector = requirementsInspector;
+        this.requirementsInspectorService = requirementsInspectorService;
+    }
 
-  @POST
-  @Path("/inspect/workitems")
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @Operation(
-      summary = "Inspect multiple workitems",
-      requestBody =
-          @RequestBody(
-              description = "List of workitems to inspect",
-              required = true,
-              content =
-                  @Content(
-                      schema =
-                          @Schema(implementation = InspectWorkItemsParams.class, type = "object"),
-                      mediaType = MediaType.APPLICATION_JSON)),
-      responses = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Return value with smell descriptions/counts",
-            content =
-                @Content(
-                    array =
-                        @ArraySchema(
+    @POST
+    @Path("/inspect/workitems")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(
+            summary = "Inspect multiple workitems",
+            requestBody =
+            @RequestBody(
+                    description = "List of workitems to inspect",
+                    required = true,
+                    content =
+                    @Content(
                             schema =
-                                @Schema(implementation = WorkItemResponse.class, type = "object")),
-                    mediaType = MediaType.APPLICATION_JSON),
-            headers = {
-              @Header(
-                  name = "python_version",
-                  description = "Version of requirements-inspector service python",
-                  schema = @Schema(implementation = String.class, type = "string")),
-              @Header(
-                  name = "polarion_requirements_inspector_version",
-                  description = "Version of requirements-inspector",
-                  schema = @Schema(implementation = String.class, type = "string")),
-              @Header(
-                  name = "polarion_requirements_inspector_service_version",
-                  description = "Version of requirements-inspector service",
-                  schema = @Schema(implementation = String.class, type = "string"))
+                            @Schema(implementation = InspectWorkItemsParams.class, type = "object"),
+                            mediaType = MediaType.APPLICATION_JSON)),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Return value with smell descriptions/counts",
+                            content =
+                            @Content(
+                                    array =
+                                    @ArraySchema(
+                                            schema =
+                                            @Schema(implementation = WorkItemResponse.class, type = "object")),
+                                    mediaType = MediaType.APPLICATION_JSON),
+                            headers = {
+                                    @Header(
+                                            name = "python_version",
+                                            description = "Version of requirements-inspector service python",
+                                            schema = @Schema(implementation = String.class, type = "string")),
+                                    @Header(
+                                            name = "polarion_requirements_inspector_version",
+                                            description = "Version of requirements-inspector",
+                                            schema = @Schema(implementation = String.class, type = "string")),
+                                    @Header(
+                                            name = "polarion_requirements_inspector_service_version",
+                                            description = "Version of requirements-inspector service",
+                                            schema = @Schema(implementation = String.class, type = "string"))
+                            })
             })
-      })
-  public Response inspectRequirements(InspectWorkItemsParams inspectWorkItemsParams) {
-    validateInspectWorkItemsParams(inspectWorkItemsParams);
-    RequirementsInspectorVersion version =
-        this.requirementsInspector.getRequirementsInspectorInfo();
-    List<IWorkItem> workItems =
-        this.polarionService.getWorkItems(
-            inspectWorkItemsParams.projectId(), inspectWorkItemsParams.ids());
-    RequirementsInspectorService.Context context =
-        RequirementsInspectorService.getContext(
-            inspectWorkItemsParams.ignoreInspectTitle(),
-            inspectWorkItemsParams.addMissingLanguage(),
-            inspectWorkItemsParams.inspectFields() == null
-                ? List.of()
-                : inspectWorkItemsParams.inspectFields());
-    List<Map<String, String>> out =
-        this.requirementsInspectorService.inspectWorkItems(workItems, context);
-    return Response.ok(out)
-        .header("python_version", version.python())
-        .header("polarion_requirements_inspector_version", version.polarionRequirementsInspector())
-        .header(
-            "polarion_requirements_inspector_service_version",
-            version.polarionRequirementsInspectorService())
-        .build();
-  }
+    public Response inspectRequirements(InspectWorkItemsParams inspectWorkItemsParams) {
+        validateInspectWorkItemsParams(inspectWorkItemsParams);
+        RequirementsInspectorVersion version =
+                this.requirementsInspector.getRequirementsInspectorInfo();
+        List<IWorkItem> workItems =
+                this.polarionService.getWorkItems(
+                        inspectWorkItemsParams.projectId(), inspectWorkItemsParams.ids());
+        RequirementsInspectorService.Context context =
+                RequirementsInspectorService.getContext(
+                        inspectWorkItemsParams.ignoreInspectTitle(),
+                        inspectWorkItemsParams.addMissingLanguage(),
+                        inspectWorkItemsParams.inspectFields() == null
+                                ? List.of()
+                                : inspectWorkItemsParams.inspectFields());
+        List<Map<String, String>> out =
+                this.requirementsInspectorService.inspectWorkItems(workItems, context);
+        return Response.ok(out)
+                .header("python_version", version.python())
+                .header("polarion_requirements_inspector_version", version.polarionRequirementsInspector())
+                .header(
+                        "polarion_requirements_inspector_service_version",
+                        version.polarionRequirementsInspectorService())
+                .build();
+    }
 
-  private void validateInspectWorkItemsParams(InspectWorkItemsParams inspectWorkItemsParams) {
-    if (inspectWorkItemsParams == null) {
-      throw new BadRequestException("Inspection parameters should be provided");
+    private void validateInspectWorkItemsParams(InspectWorkItemsParams inspectWorkItemsParams) {
+        if (inspectWorkItemsParams == null) {
+            throw new BadRequestException("Inspection parameters should be provided");
+        }
+        if (inspectWorkItemsParams.projectId() == null) {
+            throw new BadRequestException("Parameter 'projectId' should be provided");
+        }
+        if (inspectWorkItemsParams.ids() == null) {
+            throw new BadRequestException("Parameter 'ids' should be provided");
+        }
     }
-    if (inspectWorkItemsParams.projectId() == null) {
-      throw new BadRequestException("Parameter 'projectId' should be provided");
-    }
-    if (inspectWorkItemsParams.ids() == null) {
-      throw new BadRequestException("Parameter 'ids' should be provided");
-    }
-  }
 }

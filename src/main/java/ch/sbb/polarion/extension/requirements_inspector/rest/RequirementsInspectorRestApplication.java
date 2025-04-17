@@ -11,7 +11,6 @@ public class RequirementsInspectorRestApplication extends GenericRestApplication
     @Override
     protected @NotNull Set<Object> getExtensionControllerSingletons() {
         return Set.of(
-                super.getExtensionControllerSingletons(),
                 new RequirementsInspectorInternalController(),
                 new RequirementsInspectorApiController()
         );

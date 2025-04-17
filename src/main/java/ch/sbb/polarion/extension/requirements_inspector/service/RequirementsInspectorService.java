@@ -61,6 +61,14 @@ public class RequirementsInspectorService {
         jobLogger.log("Total missingProcessword %d", numIssues.get("numMissingProcessword"));
     }
 
+    public static Context getContext(boolean ignoreInspectTitle, boolean addMissingLanguage, @NotNull List<String> addFields) {
+        RequirementsInspectorService.Context context =
+                new RequirementsInspectorService.Context(
+                        ignoreInspectTitle, addMissingLanguage);
+        addFields.forEach(context::addFieldToInspection);
+        return context;
+    }
+
     /**
      * Inspects work items by executing a Python script. Populates
      * each work item with the inspection results.
@@ -87,14 +95,6 @@ public class RequirementsInspectorService {
         polarionService.updateWorkItemsFields(workItems, data);
         logResults(data);
         return data;
-    }
-
-    public static Context getContext(boolean ignoreInspectTitle, boolean addMissingLanguage, @NotNull List<String> addFields) {
-        RequirementsInspectorService.Context context =
-                new RequirementsInspectorService.Context(
-                        ignoreInspectTitle, addMissingLanguage);
-        addFields.forEach(context::addFieldToInspection);
-        return context;
     }
 
     public static class Context {

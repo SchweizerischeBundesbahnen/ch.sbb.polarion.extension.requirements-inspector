@@ -12,11 +12,11 @@ import javax.ws.rs.core.Response;
 @Path("/api")
 @NoArgsConstructor
 public class RequirementsInspectorApiController extends RequirementsInspectorInternalController {
-  private final PolarionService polarionService = new PolarionService();
+    private final PolarionService polarionService = new PolarionService();
 
-  @Override
-  public Response inspectRequirements(InspectWorkItemsParams inspectWorkItemsParams) {
-    return this.polarionService.callPrivileged(
-        () -> super.inspectRequirements(inspectWorkItemsParams));
-  }
+    @Override
+    public Response inspectRequirements(InspectWorkItemsParams inspectWorkItemsParams) {
+        return this.polarionService.callPrivileged(
+                () -> super.inspectRequirements(inspectWorkItemsParams));
+    }
 }
