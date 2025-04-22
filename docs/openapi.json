@@ -26,6 +26,119 @@
         ]
       }
     },
+    "/api/inspect/workitem": {
+      "post": {
+        "operationId": "inspectRequirement",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectWorkItemParams"
+              }
+            }
+          },
+          "description": "Workitem to inspect",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkItemResponse"
+                }
+              }
+            },
+            "description": "Return value with smell descriptions/counts",
+            "headers": {
+              "polarion_requirements_inspector_service_version": {
+                "description": "Version of requirements-inspector service",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              },
+              "polarion_requirements_inspector_version": {
+                "description": "Version of requirements-inspector",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              },
+              "python_version": {
+                "description": "Version of requirements-inspector service python",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              }
+            }
+          }
+        },
+        "summary": "Inspect a single workitem",
+        "tags": [
+          "Requirements Inspection"
+        ]
+      }
+    },
+    "/api/inspect/workitems": {
+      "post": {
+        "operationId": "inspectRequirements",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectWorkItemsParams"
+              }
+            }
+          },
+          "description": "List of workitems to inspect",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WorkItemResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Return value with smell descriptions/counts",
+            "headers": {
+              "polarion_requirements_inspector_service_version": {
+                "description": "Version of requirements-inspector service",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              },
+              "polarion_requirements_inspector_version": {
+                "description": "Version of requirements-inspector",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              },
+              "python_version": {
+                "description": "Version of requirements-inspector service python",
+                "schema": {
+                  "type": "string"
+                },
+                "style": "simple"
+              }
+            }
+          }
+        },
+        "summary": "Inspect multiple workitems",
+        "tags": [
+          "Requirements Inspection"
+        ]
+      }
+    },
     "/api/version": {
       "get": {
         "operationId": "getVersion",
@@ -75,6 +188,55 @@
         },
         "type": "object"
       },
+      "InspectWorkItemParams": {
+        "properties": {
+          "addFields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "addMissingLanguage": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ignoreInspectTitle": {
+            "type": "boolean"
+          },
+          "projectId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "InspectWorkItemsParams": {
+        "properties": {
+          "addFields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "addMissingLanguage": {
+            "type": "boolean"
+          },
+          "ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ignoreInspectTitle": {
+            "type": "boolean"
+          },
+          "projectId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "Version": {
         "description": "Details about the software version",
         "properties": {
@@ -105,6 +267,38 @@
           "supportEmail": {
             "description": "Support email for the bundle",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "WorkItemResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "missingProcessword": {
+            "type": "boolean"
+          },
+          "smellComparative": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "smellComplex": {
+            "type": "string"
+          },
+          "smellDescription": {
+            "type": "string"
+          },
+          "smellPassive": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "smellWeakword": {
+            "format": "int32",
+            "type": "integer"
           }
         },
         "type": "object"

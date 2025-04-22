@@ -1,9 +1,8 @@
 package ch.sbb.polarion.extension.requirements_inspector.service;
 
+import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspector;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
-import ch.sbb.polarion.extension.generic.util.JobLogger;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polarion.alm.tracker.model.IWorkItem;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -30,10 +29,14 @@ class RequirementsInspectorServiceTest {
         RequirementsInspector executor = mock(RequirementsInspector.class);
         when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
 
-        RequirementsInspectorService.Context context = new RequirementsInspectorService.Context(true, true);
-        assertDoesNotThrow(() -> new RequirementsInspectorService(polarionService, executor).inspectWorkitems(new ArrayList<>(), context));
+        RequirementsInspectorService.Context context =
+                new RequirementsInspectorService.Context(true, true);
+        assertDoesNotThrow(
+                () ->
+                        new RequirementsInspectorService(polarionService, executor)
+                                .inspectWorkItems(new ArrayList<>(), context));
 
-        //check that none of these methods were called
+        // check that none of these methods were called
         verify(polarionService, times(0)).getFieldData(any(), any());
         verify(polarionService, times(0)).updateWorkItemsFields(any(), any());
         verify(executor, times(0)).inspectWorkitems(any());
@@ -48,15 +51,19 @@ class RequirementsInspectorServiceTest {
         RequirementsInspector executor = mock(RequirementsInspector.class);
         when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
 
-        RequirementsInspectorService.Context context = new RequirementsInspectorService.Context(true, true);
+        RequirementsInspectorService.Context context =
+                new RequirementsInspectorService.Context(true, true);
         context.addFieldToInspection("oneMoreField");
         context.addFieldToInspection("oneMoreFieldTwo");
-        new RequirementsInspectorService(polarionService, executor).inspectWorkitems(Collections.singletonList(mock(IWorkItem.class)), context);
+        new RequirementsInspectorService(polarionService, executor)
+                .inspectWorkItems(Collections.singletonList(mock(IWorkItem.class)), context);
 
         ArgumentCaptor<Set<String>> inputItemsCaptor = ArgumentCaptor.forClass(Set.class);
         verify(polarionService).getFieldData(inputItemsCaptor.capture(), any());
 
-        assertEquals(Set.of(Consts.LANGUAGE, Consts.DESCRIPTION, "oneMoreField", "oneMoreFieldTwo"), inputItemsCaptor.getValue());
+        assertEquals(
+                Set.of(Consts.LANGUAGE, Consts.DESCRIPTION, "oneMoreField", "oneMoreFieldTwo"),
+                inputItemsCaptor.getValue());
 
         ArgumentCaptor<List<Map<String, String>>> dataCaptor = ArgumentCaptor.forClass(List.class);
         verify(polarionService).updateWorkItemsFields(any(), dataCaptor.capture());
@@ -75,13 +82,16 @@ class RequirementsInspectorServiceTest {
         RequirementsInspector executor = mock(RequirementsInspector.class);
         when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
 
-        RequirementsInspectorService.Context context = new RequirementsInspectorService.Context(false, false);
-        new RequirementsInspectorService(polarionService, executor).inspectWorkitems(Collections.singletonList(mock(IWorkItem.class)), context);
+        RequirementsInspectorService.Context context =
+                new RequirementsInspectorService.Context(false, false);
+        new RequirementsInspectorService(polarionService, executor)
+                .inspectWorkItems(Collections.singletonList(mock(IWorkItem.class)), context);
 
         ArgumentCaptor<Set<String>> inputItemsCaptor = ArgumentCaptor.forClass(Set.class);
         verify(polarionService).getFieldData(inputItemsCaptor.capture(), any());
 
-        assertEquals(Set.of(Consts.TITLE, Consts.LANGUAGE, Consts.DESCRIPTION), inputItemsCaptor.getValue());
+        assertEquals(
+                Set.of(Consts.TITLE, Consts.LANGUAGE, Consts.DESCRIPTION), inputItemsCaptor.getValue());
 
         ArgumentCaptor<List<Map<String, String>>> dataCaptor = ArgumentCaptor.forClass(List.class);
         verify(polarionService).updateWorkItemsFields(any(), dataCaptor.capture());
@@ -114,12 +124,13 @@ class RequirementsInspectorServiceTest {
     }
 
     @SneakyThrows
-    private String generateExecutorResponse() {
-        return new ObjectMapper().writeValueAsString(
-                List.of(Map.of(
-                        Consts.TITLE, "someTitle",
-                        Consts.DESCRIPTION, "someDesc",
-                        Consts.LANGUAGE, "someLang"
-                )));
+    private List<Map<String, String>> generateExecutorResponse() {
+        return new ArrayList<>(
+                List.of(
+                        new HashMap<>(
+                                Map.of(
+                                        Consts.TITLE, "someTitle",
+                                        Consts.DESCRIPTION, "someDesc",
+                                        Consts.LANGUAGE, "someLang"))));
     }
 }
