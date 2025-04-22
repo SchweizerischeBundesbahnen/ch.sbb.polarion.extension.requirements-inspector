@@ -1,7 +1,7 @@
 package ch.sbb.polarion.extension.requirements_inspector.requirements_inspector;
 
-import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.model.RequirementsInspectorVersion;
 import ch.sbb.polarion.extension.requirements_inspector.configuration.RequirementsInspectorExtensionConfigurationExtension;
+import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.model.RequirementsInspectorVersion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -19,8 +19,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class, RequirementsInspectorExtensionConfigurationExtension.class})
 class ServiceConnectorUtilsTest {
-    private static Client client = null;
     private static final List<Map<String, String>> workItems = List.of();
+    private static Client client = null;
 
     static void setupPost(Response response) {
         Builder builder = mock(Builder.class);
@@ -51,7 +51,7 @@ class ServiceConnectorUtilsTest {
         when(response.readEntity(String.class)).thenReturn("[]");
         setupPost(response);
 
-        assertEquals("[]", ServiceConnectorUtils.inspectWorkitems(workItems, client));
+        assertEquals(List.of(), ServiceConnectorUtils.inspectWorkitems(workItems, client));
     }
 
     @Test

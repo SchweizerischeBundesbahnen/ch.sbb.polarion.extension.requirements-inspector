@@ -10,9 +10,8 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.mockStatic;
 
 public class RequirementsInspectorExtensionConfigurationExtension implements BeforeEachCallback, AfterEachCallback {
-    private MockedStatic<RequirementsInspectorExtensionConfiguration> requirementsInspectorExtensionConfigurationMockedStatic;
-
     private static RequirementsInspectorExtensionConfiguration requirementsInspectorExtensionConfiguration;
+    private MockedStatic<RequirementsInspectorExtensionConfiguration> requirementsInspectorExtensionConfigurationMockedStatic;
 
     @SuppressWarnings({"unused"})
     public static void setRequirementsInspectorExtensionConfigurationMock(RequirementsInspectorExtensionConfiguration mock) {

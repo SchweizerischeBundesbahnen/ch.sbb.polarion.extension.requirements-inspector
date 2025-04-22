@@ -1,7 +1,7 @@
 package ch.sbb.polarion.extension.requirements_inspector;
 
-import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import com.polarion.alm.projects.IProjectService;
 import com.polarion.alm.projects.model.IProject;
 import com.polarion.alm.tracker.ITrackerService;
@@ -19,7 +19,8 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -62,7 +63,7 @@ class RequirementsInspectorJobUnitTest {
             verify(trackerService, times(1)).queryWorkItems(any(), eq("NOT HAS_VALUE:resolution AND type:(type1 type2)"), eq("id"));
 
             ArgumentCaptor<RequirementsInspectorService.Context> contextArgument = ArgumentCaptor.forClass(RequirementsInspectorService.Context.class);
-            verify(mockedInspectorService.constructed().get(0)).inspectWorkitems(any(), contextArgument.capture());
+            verify(mockedInspectorService.constructed().get(0)).inspectWorkItems(any(), contextArgument.capture());
 
             assertTrue(contextArgument.getValue().getFields().containsAll(Arrays.asList("field1", "field2")));
             assertEquals("", status.getMessage());

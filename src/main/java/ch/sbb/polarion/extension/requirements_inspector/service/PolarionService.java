@@ -4,6 +4,7 @@ import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import com.polarion.alm.projects.IProjectService;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
 import com.polarion.alm.tracker.ITrackerService;
+import com.polarion.alm.tracker.model.ITrackerProject;
 import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.core.util.logging.Logger;
 import com.polarion.core.util.types.Text;
@@ -28,37 +29,58 @@ public class PolarionService extends ch.sbb.polarion.extension.generic.service.P
     public PolarionService() {
     }
 
-    public PolarionService(@NotNull ITrackerService trackerService, @NotNull IProjectService projectService, @NotNull ISecurityService securityService,
-                           @NotNull IPlatformService platformService, @NotNull IRepositoryService repositoryService) {
+    public PolarionService(
+            @NotNull ITrackerService trackerService,
+            @NotNull IProjectService projectService,
+            @NotNull ISecurityService securityService,
+            @NotNull IPlatformService platformService,
+            @NotNull IRepositoryService repositoryService) {
         super(trackerService, projectService, securityService, platformService, repositoryService);
     }
 
     @SneakyThrows
     public List<Map<String, String>> getFieldData(Set<String> fields, List<IWorkItem> workItems) {
-        return workItems.stream().map(workItem -> {
-            Map<String, String> map = new HashMap<>();
-            map.put(Consts.ID, workItem.getId());
-            fields.forEach(fieldId -> map.put(fieldId, getWorkItemFieldData(workItem, fieldId)));
-            return map;
-        }).toList();
+        return workItems.stream()
+                .map(
+                        workItem -> {
+                            Map<String, String> map = new HashMap<>();
+                            map.put(Consts.ID, workItem.getId());
+                            fields.forEach(fieldId -> map.put(fieldId, getWorkItemFieldData(workItem, fieldId)));
+                            return map;
+                        })
+                .toList();
     }
 
     @SneakyThrows
     public void updateWorkItemsFields(List<IWorkItem> workItems, List<Map<String, String>> dataMap) {
         for (IWorkItem workItem : workItems) {
             String workItemId = workItem.getId();
-            dataMap.stream().filter(map -> Objects.equals(workItemId, map.get(Consts.ID))).findFirst().ifPresent(fields -> fields.forEach((key, value) -> {
-                if (!Objects.equals(Consts.ID, key)) { //do not process ID field
-                    LOGGER.info("update workItem: %s custom field '%s' with value: '%s'".formatted(workItemId, key, value));
-                    setFieldValue(workItem, key, value);
-                }
-            }));
+            dataMap.stream()
+                    .filter(map -> Objects.equals(workItemId, map.get(Consts.ID)))
+                    .findFirst()
+                    .ifPresent(
+                            fields ->
+                                    fields.forEach(
+                                            (key, value) -> {
+                                                if (!Objects.equals(Consts.ID, key)) { // do not process ID field
+                                                    LOGGER.info(
+                                                            "update workItem: %s custom field '%s' with value: '%s'"
+                                                                    .formatted(workItemId, key, value));
+                                                    setFieldValue(workItem, key, value);
+                                                }
+                                            }));
         }
 
-        TransactionalExecutor.executeInWriteTransaction(writeTransaction -> {
-            workItems.forEach(IWorkItem::save);
-            return true;
-        });
+        TransactionalExecutor.executeInWriteTransaction(
+                writeTransaction -> {
+                    workItems.forEach(IWorkItem::save);
+                    return true;
+                });
+    }
+
+    public List<IWorkItem> getWorkItems(@NotNull String projectId, @NotNull List<String> workItemIds) {
+        ITrackerProject trackerProject = this.getTrackerProject(projectId);
+        return workItemIds.stream().map(trackerProject::getWorkItem).toList();
     }
 
     private String getWorkItemFieldData(IWorkItem workItem, String workItemFieldId) {

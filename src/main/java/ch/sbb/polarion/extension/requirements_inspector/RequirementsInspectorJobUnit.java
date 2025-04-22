@@ -1,8 +1,9 @@
 package ch.sbb.polarion.extension.requirements_inspector;
 
+import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspectorServiceConnector;
-import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import ch.sbb.polarion.extension.requirements_inspector.util.StringUtil;
 import com.polarion.alm.projects.model.IProject;
@@ -16,7 +17,6 @@ import com.polarion.platform.jobs.IProgressMonitor;
 import com.polarion.platform.jobs.spi.AbstractJobUnit;
 import lombok.Setter;
 import org.jetbrains.annotations.VisibleForTesting;
-import ch.sbb.polarion.extension.generic.util.JobLogger;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
             for (String fieldId : StringUtil.stringToList(inspectFields, Consts.SEPARATOR).stream().filter(str -> !str.isEmpty()).toList()) {
                 context.addFieldToInspection(fieldId);
             }
-            requirementsInspectorService.inspectWorkitems(workItems, context);
+            requirementsInspectorService.inspectWorkItems(workItems, context);
 
             return getStatusOK(JobLogger.getInstance().getLog());
         } catch (Exception e) {
@@ -89,5 +89,4 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
         // Return the complete query string
         return query;
     }
-
 }
