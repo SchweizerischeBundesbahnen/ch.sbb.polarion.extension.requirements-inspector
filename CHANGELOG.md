@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.3.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v3.2.0...v3.3.0) (2025-04-23)
+
+
+### Features
+
+* add rest endpoints for functionality ([#34](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/34)) ([c9d56d6](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/c9d56d6194bb433adfb917e385a8355a2e1a7d57))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v8.1.0 ([b632643](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b6326432940a40b0ff596c5c4416d49611804a92))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v8.1.1 ([d569934](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/d56993436dbfd581c4282e73344d41ea360b1b2d))
+
 ## [3.2.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v3.1.0...v3.2.0) (2025-01-29)
 
 
