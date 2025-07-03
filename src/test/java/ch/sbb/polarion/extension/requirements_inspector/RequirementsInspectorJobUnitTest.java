@@ -1,5 +1,6 @@
 package ch.sbb.polarion.extension.requirements_inspector;
 
+import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import com.polarion.alm.projects.IProjectService;
@@ -28,6 +29,7 @@ class RequirementsInspectorJobUnitTest {
 
     @Test
     void jobRunTest() {
+        JobLogger.getInstance().clear();
 
         PolarionService polarionService = mock(PolarionService.class);
 
@@ -67,6 +69,8 @@ class RequirementsInspectorJobUnitTest {
 
             assertTrue(contextArgument.getValue().getFields().containsAll(Arrays.asList("field1", "field2")));
             assertEquals("", status.getMessage());
+        } finally {
+            JobLogger.getInstance().clear();
         }
     }
 

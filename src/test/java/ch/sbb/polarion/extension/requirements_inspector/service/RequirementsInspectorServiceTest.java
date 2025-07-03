@@ -103,6 +103,9 @@ class RequirementsInspectorServiceTest {
 
     @Test
     void testLogMessage() {
+        JobLogger.getInstance().clear();
+        assertEquals("", JobLogger.getInstance().getLog());
+
         HashMap<String, String> workItemResult = new HashMap<>();
         List<Map<String, String>> data = new ArrayList<>();
         workItemResult.put("smellComplex", "0");
@@ -121,6 +124,9 @@ class RequirementsInspectorServiceTest {
         assertTrue(output.contains("Total smellComparative 1"));
         assertTrue(output.contains("Total missingProcessword 1"));
         assertTrue(output.contains("ABCTEST"));
+
+        JobLogger.getInstance().clear();
+        assertEquals("", JobLogger.getInstance().getLog());
     }
 
     @SneakyThrows
