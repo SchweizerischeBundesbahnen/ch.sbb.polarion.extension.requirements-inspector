@@ -16,7 +16,7 @@ The inspector is implemented in [scripts](https://github.com/SchweizerischeBunde
 
 > [!IMPORTANT]
 > Only latest version of Polarion is supported.
-> Right now it is Polarion 2410.
+> Right now it is Polarion 2506.
 
 ## Quick start
 
