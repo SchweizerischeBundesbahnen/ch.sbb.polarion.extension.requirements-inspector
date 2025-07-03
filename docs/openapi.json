@@ -26,61 +26,6 @@
         ]
       }
     },
-    "/api/inspect/workitem": {
-      "post": {
-        "operationId": "inspectRequirement",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InspectWorkItemParams"
-              }
-            }
-          },
-          "description": "Workitem to inspect",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WorkItemResponse"
-                }
-              }
-            },
-            "description": "Return value with smell descriptions/counts",
-            "headers": {
-              "polarion_requirements_inspector_service_version": {
-                "description": "Version of requirements-inspector service",
-                "schema": {
-                  "type": "string"
-                },
-                "style": "simple"
-              },
-              "polarion_requirements_inspector_version": {
-                "description": "Version of requirements-inspector",
-                "schema": {
-                  "type": "string"
-                },
-                "style": "simple"
-              },
-              "python_version": {
-                "description": "Version of requirements-inspector service python",
-                "schema": {
-                  "type": "string"
-                },
-                "style": "simple"
-              }
-            }
-          }
-        },
-        "summary": "Inspect a single workitem",
-        "tags": [
-          "Requirements Inspection"
-        ]
-      }
-    },
     "/api/inspect/workitems": {
       "post": {
         "operationId": "inspectRequirements",
@@ -168,17 +113,14 @@
         "properties": {
           "baseUrl": {
             "description": "Returns the base URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter",
             "type": "string"
           },
           "extensionContext": {
             "description": "The extension context used as a base for URL construction",
-            "example": "pdf-exporter",
             "type": "string"
           },
           "restUrl": {
             "description": "Returns the REST API URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter/rest",
             "type": "string"
           },
           "swaggerUiUrl": {
@@ -188,37 +130,8 @@
         },
         "type": "object"
       },
-      "InspectWorkItemParams": {
-        "properties": {
-          "addFields": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "addMissingLanguage": {
-            "type": "boolean"
-          },
-          "id": {
-            "type": "string"
-          },
-          "ignoreInspectTitle": {
-            "type": "boolean"
-          },
-          "projectId": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "InspectWorkItemsParams": {
         "properties": {
-          "addFields": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
           "addMissingLanguage": {
             "type": "boolean"
           },
@@ -230,6 +143,12 @@
           },
           "ignoreInspectTitle": {
             "type": "boolean"
+          },
+          "inspectFields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "projectId": {
             "type": "string"
