@@ -1,5 +1,26 @@
 # Changelog
 
+## [5.0.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v4.0.1...v5.0.0) (2026-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* polarion 2512 support ([#59](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/59))
+
+### Features
+
+* generic v12.1.0 ([#60](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/60)) ([76f50a4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/76f50a416eb063b3de88f9531181c2ad6c539c0b))
+* polarion 2512 support ([#59](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/59)) ([57ca63c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/57ca63c8f5de7032d39f90e261b1913920704a9f))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.1.0 ([f13a772](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/f13a772a43b16870ecc4364e547da4fa2900b285))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.2.0 ([2954448](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/2954448fb99a2acbf7e6cabd3b1a6c04a648f69b))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.3.0 ([b9c9c37](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b9c9c37e92fe901a6fab148bf1b772073f1bdc3f))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v12 ([#57](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/57)) ([19bef9b](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/19bef9bc6c1a73268c2bcd396498e3ca588f0213))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v13.1.0 ([1c647cf](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/1c647cf8fda26073b74c0a9b490647a82d9496a0))
+
 ## [4.0.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v4.0.0...v4.0.1) (2025-07-28)
 
 
