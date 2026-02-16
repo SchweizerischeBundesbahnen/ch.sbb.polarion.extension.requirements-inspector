@@ -9,10 +9,10 @@ import java.util.Set;
 
 public class RequirementsInspectorRestApplication extends GenericRestApplication {
     @Override
-    protected @NotNull Set<Object> getExtensionControllerSingletons() {
+    protected @NotNull Set<Class<?>> getExtensionControllerClasses() {
         return Set.of(
-                new RequirementsInspectorInternalController(),
-                new RequirementsInspectorApiController()
+                RequirementsInspectorInternalController.class,
+                RequirementsInspectorApiController.class
         );
     }
 }

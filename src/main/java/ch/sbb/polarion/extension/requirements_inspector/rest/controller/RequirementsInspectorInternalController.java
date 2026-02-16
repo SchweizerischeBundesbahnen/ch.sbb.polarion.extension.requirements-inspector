@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.VisibleForTesting;
 
+import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -29,6 +30,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
 
+@Singleton
 @Hidden
 @Path("/internal")
 @Tag(name = "Requirements Inspection")
