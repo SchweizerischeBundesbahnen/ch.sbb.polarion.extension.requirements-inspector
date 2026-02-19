@@ -52,6 +52,12 @@
         <maven-jar-plugin.Configuration-Properties-Prefix>ch.sbb.polarion.extension.requirements-inspector.</maven-jar-plugin.Configuration-Properties-Prefix>
 
         <web.app.name>${maven-jar-plugin.Extension-Context}</web.app.name>
+
+        <!-- Extension-specific Require-Bundle (in addition to common ones from parent POM):
+            com.polarion.platform.jobs
+        -->
+        <maven-jar-plugin.Require-Bundle.extension>com.polarion.platform.jobs</maven-jar-plugin.Require-Bundle.extension>
+        <maven-jar-plugin.Require-Bundle>${maven-jar-plugin.Require-Bundle.common},${maven-jar-plugin.Require-Bundle.extension}</maven-jar-plugin.Require-Bundle>
     </properties>
 
     <dependencies>
