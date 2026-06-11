@@ -5,9 +5,9 @@ import ch.sbb.polarion.extension.requirements_inspector.rest.model.InspectWorkIt
 import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
 import lombok.NoArgsConstructor;
 
-import javax.inject.Singleton;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 
 @Singleton
 @Secured

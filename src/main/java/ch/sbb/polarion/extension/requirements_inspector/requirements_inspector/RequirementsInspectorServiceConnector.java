@@ -2,8 +2,8 @@ package ch.sbb.polarion.extension.requirements_inspector.requirements_inspector;
 
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.model.RequirementsInspectorVersion;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import java.util.List;
 import java.util.Map;
 
