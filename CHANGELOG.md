@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v5.0.2...v6.0.0) (2026-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Polarion 2606 support ([#72](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/72))
+
+### Features
+
+* Polarion 2606 support ([#72](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/72)) ([68d0419](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/68d04190a6bee19211b13204e1c3e1fd7a393c7b)), closes [#68](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/68)
+
 ## [5.0.2](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v5.0.1...v5.0.2) (2026-06-09)
 
 
