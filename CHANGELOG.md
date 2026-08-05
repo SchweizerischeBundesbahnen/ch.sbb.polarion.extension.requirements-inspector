@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.0.2...v6.1.0) (2026-08-05)
+
+
+### Features
+
+* react UI ([#106](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/106)) ([875ee30](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/875ee309f24f406e7414538bd886d2d1b76472c2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @grigoriev/react-sbb-polarion to ^0.2.0 ([#119](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/119)) ([2c8909d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/2c8909d609b64ea5249105d4a5d7443c9c865130))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.10.0 ([#105](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/105)) ([2ad1872](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/2ad187219cb1cf256d7f78ad73fcfb96d31920ef))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.10.1 ([#110](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/110)) ([6245bb7](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/6245bb77b0b756779efd4da1cb89eb075b3f50c7))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.6.0 ([#100](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/100)) ([b330306](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b330306115fe7e10fd4a15d944223952645ccd20))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.7.0 ([#102](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/102)) ([70b330e](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/70b330e10d8065970fe889eb186219fe15bda94f))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v15.8.1 ([#104](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/104)) ([0b8b89c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/0b8b89c15fa6cacbed8d3bf2ef716c3d8dcb9858))
+* show this extension's own icon on the About page ([#111](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/111)) ([b7d670c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b7d670c2c95e6760e061596ffec35d1420d5332c))
+
 ## [6.0.2](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.0.1...v6.0.2) (2026-07-15)
 
 
