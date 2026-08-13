@@ -59,10 +59,6 @@
         <maven-jar-plugin.Require-Bundle.extension>com.polarion.platform.jobs</maven-jar-plugin.Require-Bundle.extension>
         <maven-jar-plugin.Require-Bundle>${maven-jar-plugin.Require-Bundle.common},${maven-jar-plugin.Require-Bundle.extension}</maven-jar-plugin.Require-Bundle>
 
-        <!-- The workflow sets MARKDOWN2HTML_MAVEN_PLUGIN_FAIL_ON_ERROR=true, so a broken
-             README.md -> about.html conversion fails CI instead of shipping an empty About page.
-             Unset locally, the property does not resolve to a boolean and the plugin reads it as
-             false, which is the parent's default. -->
         <!-- A broken README.md -> about.html conversion fails the build instead of shipping an
              empty About page. markdown2html renders locally since 1.7.x - no GitHub API, no token -
              so the same setting is right in CI, in a deploy job and on a developer machine. -->
@@ -142,7 +138,6 @@
                 <artifactId>swagger-maven-plugin-jakarta</artifactId>
                 <configuration>
                     <outputFormat>JSON</outputFormat>
-                    <sortOutput>true</sortOutput>
                     <resourcePackages>
                         <package>ch.sbb.polarion.extension.generic.rest.controller.info</package>
                         <package>ch.sbb.polarion.extension.generic.rest.model</package>
