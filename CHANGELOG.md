@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.1.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.1.0...v6.1.1) (2026-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency globals to v17.12.0 ([#163](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/163)) ([1ed4189](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/1ed418994c139fe935cdb15bbb1b2beb34e6573a))
+* **deps:** update dependency typescript-eslint to v8.69.0 ([#159](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/159)) ([b817e8f](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b817e8f9c06ae44510513f5d24e1799d72a60758))
+
 ## [6.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.0.2...v6.1.0) (2026-08-21)
 
 
