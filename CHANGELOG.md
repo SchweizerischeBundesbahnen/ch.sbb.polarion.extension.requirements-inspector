@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.1.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.1.0...v6.1.1) (2026-09-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/node to v24.13.4 ([#173](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/173)) ([9c2a6ab](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/9c2a6ab8b0618b436f36fcb30b29348f7ddae810))
+* **deps:** update dependency @types/node to v24.13.5 ([#180](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/180)) ([54c4e89](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/54c4e89bf723c2a2ffb7f6b3a627665644e8c107))
+* **deps:** update dependency @types/react-dom to v19.2.7 ([#165](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/165)) ([e8c6c97](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/e8c6c97ae52ec94149a44bab1b3b2dcb5c747ab7))
+* **deps:** update dependency eslint to v10.10.0 ([#168](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/168)) ([1fe181d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/1fe181d3493d11026bd8af015528dbb14b5e837d))
+* **deps:** update dependency globals to v17.12.0 ([#163](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/163)) ([1ed4189](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/1ed418994c139fe935cdb15bbb1b2beb34e6573a))
+* **deps:** update dependency playwright to v1.63.0 ([#169](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/169)) ([0cfb3b6](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/0cfb3b69fd2f0d46677849cf7450c2deff84c4e2))
+* **deps:** update dependency prettier to v3.9.7 ([#182](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/182)) ([1202955](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/12029551ed8d71a46565a554c9c70dafda9e58ee))
+* **deps:** update dependency typescript-eslint to v8.69.0 ([#159](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/159)) ([b817e8f](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/b817e8f9c06ae44510513f5d24e1799d72a60758))
+* **deps:** update dependency typescript-eslint to v8.70.0 ([#170](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/170)) ([2147dce](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/2147dcefa95ab204985a1486281ab33c4e06e632))
+* **deps:** update dependency vite to v8.3.0 ([#175](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/175)) ([e694531](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/e6945312e4ef69c46eb4776018fa5591b3d3daad))
+* **deps:** update react monorepo to v19.3.0 ([#174](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/174)) ([4e257d6](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/4e257d66b3b0c6a17295c27806e19c01b9dcb8f8))
+* **deps:** update vitest monorepo to v5.0.1 ([#181](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/issues/181)) ([cf0321b](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/commit/cf0321b9b299203d68df32206c079c3480118a7b))
+
 ## [6.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.requirements-inspector/compare/v6.0.2...v6.1.0) (2026-08-21)
 
 
