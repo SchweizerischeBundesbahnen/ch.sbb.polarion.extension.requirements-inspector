@@ -91,6 +91,9 @@ describe('Landing page, accessibility', () => {
     window.history.replaceState({}, '', '?');
     render(<App />);
     await vi.waitFor(() => expect(document.querySelector('.landing-scope .sd-trigger')).not.toBeNull());
+    await vi.waitFor(() =>
+      expect(document.querySelector('.landing-scope option[value="project/elibrary/"]')).not.toBeNull(),
+    );
     expect(await pageViolations()).toEqual([]);
   });
 
@@ -108,6 +111,9 @@ describe('Landing page, accessibility', () => {
     installFetchMock([{ method: 'GET', match: /\/polarion\/rest\/v1\/projects/, json: PROJECTS }]);
     window.history.replaceState({}, '', '?');
     render(<App />);
+    await vi.waitFor(() =>
+      expect(document.querySelector('.landing-scope option[value="project/elibrary/"]')).not.toBeNull(),
+    );
     await expect.element(page.getByRole('combobox', { name: 'Project scope:', exact: true })).toBeVisible();
   });
 });
