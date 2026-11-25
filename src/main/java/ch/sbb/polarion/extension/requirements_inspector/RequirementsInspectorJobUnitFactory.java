@@ -1,6 +1,6 @@
 package ch.sbb.polarion.extension.requirements_inspector;
 
-import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorPolarionService;
 import com.polarion.platform.jobs.IJobDescriptor;
 import com.polarion.platform.jobs.IJobUnit;
 import com.polarion.platform.jobs.IJobUnitFactory;
@@ -10,7 +10,7 @@ import com.polarion.platform.jobs.spi.SimpleJobParameter;
 
 public class RequirementsInspectorJobUnitFactory implements IJobUnitFactory {
 
-    private final PolarionService polarionService = new PolarionService();
+    private final RequirementsInspectorPolarionService polarionService = new RequirementsInspectorPolarionService();
 
     public IJobUnit createJobUnit(String name) {
         return new RequirementsInspectorJobUnit(name, this, polarionService);

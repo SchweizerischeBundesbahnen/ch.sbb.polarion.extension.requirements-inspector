@@ -23,11 +23,11 @@ class RequirementsInspectorServiceTest {
 
     @Test
     void testNothingHappensWhenNoWorkitems() {
-        PolarionService polarionService = mock(PolarionService.class);
+        RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
         when(polarionService.getFieldData(any(), any())).thenReturn(new ArrayList<>());
 
         RequirementsInspector executor = mock(RequirementsInspector.class);
-        when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
+        when(executor.inspectWorkItems(any())).thenReturn(generateExecutorResponse());
 
         RequirementsInspectorService.Context context =
                 new RequirementsInspectorService.Context(true, true);
@@ -39,17 +39,17 @@ class RequirementsInspectorServiceTest {
         // check that none of these methods were called
         verify(polarionService, times(0)).getFieldData(any(), any());
         verify(polarionService, times(0)).updateWorkItemsFields(any(), any());
-        verify(executor, times(0)).inspectWorkitems(any());
+        verify(executor, times(0)).inspectWorkItems(any());
     }
 
     @Test
     @SuppressWarnings("unchecked")
     void testInspect() {
-        PolarionService polarionService = mock(PolarionService.class);
+        RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
         when(polarionService.getFieldData(any(), any())).thenReturn(new ArrayList<>());
 
         RequirementsInspector executor = mock(RequirementsInspector.class);
-        when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
+        when(executor.inspectWorkItems(any())).thenReturn(generateExecutorResponse());
 
         RequirementsInspectorService.Context context =
                 new RequirementsInspectorService.Context(true, true);
@@ -76,11 +76,11 @@ class RequirementsInspectorServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void testInspectSkipLanguage() {
-        PolarionService polarionService = mock(PolarionService.class);
+        RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
         when(polarionService.getFieldData(any(), any())).thenReturn(new ArrayList<>());
 
         RequirementsInspector executor = mock(RequirementsInspector.class);
-        when(executor.inspectWorkitems(any())).thenReturn(generateExecutorResponse());
+        when(executor.inspectWorkItems(any())).thenReturn(generateExecutorResponse());
 
         RequirementsInspectorService.Context context =
                 new RequirementsInspectorService.Context(false, false);

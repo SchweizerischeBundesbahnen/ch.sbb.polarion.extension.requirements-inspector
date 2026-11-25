@@ -1,5 +1,6 @@
 package ch.sbb.polarion.extension.requirements_inspector.service;
 
+import ch.sbb.polarion.extension.generic.service.PolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import com.polarion.alm.projects.IProjectService;
 import com.polarion.alm.shared.api.transaction.TransactionalExecutor;
@@ -21,15 +22,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-@SuppressWarnings("squid:S2176") // class named same as parent intentionally
-public class PolarionService extends ch.sbb.polarion.extension.generic.service.PolarionService {
+public class RequirementsInspectorPolarionService extends PolarionService {
 
-    private static final Logger LOGGER = Logger.getLogger(PolarionService.class);
+    private static final Logger LOGGER = Logger.getLogger(RequirementsInspectorPolarionService.class);
 
-    public PolarionService() {
+    public RequirementsInspectorPolarionService() {
     }
 
-    public PolarionService(
+    public RequirementsInspectorPolarionService(
             @NotNull ITrackerService trackerService,
             @NotNull IProjectService projectService,
             @NotNull ISecurityService securityService,
