@@ -6,6 +6,7 @@ import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInsp
 import com.polarion.alm.projects.IProjectService;
 import com.polarion.alm.projects.model.IProject;
 import com.polarion.alm.tracker.ITrackerService;
+import com.polarion.alm.tracker.model.IWorkItem;
 import com.polarion.platform.context.IContext;
 import com.polarion.platform.jobs.IJob;
 import com.polarion.platform.jobs.IJobStatus;
@@ -77,16 +78,19 @@ class RequirementsInspectorJobUnitTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void jobParametersReachTheQueryAndTheInspection() {
         JobLogger.getInstance().clear();
 
         RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
         IProjectService projectService = mock(IProjectService.class);
         when(polarionService.getProjectService()).thenReturn(projectService);
-        when(projectService.getProjectForContextId(any())).thenReturn(mock(IProject.class));
+        IProject project = mock(IProject.class);
+        when(projectService.getProjectForContextId(any())).thenReturn(project);
         ITrackerService trackerService = mock(ITrackerService.class);
         when(polarionService.getTrackerService()).thenReturn(trackerService);
-        when(trackerService.queryWorkItems(any(), any(), any())).thenReturn(mock(IPObjectList.class));
+        IPObjectList<IWorkItem> workItems = mock(IPObjectList.class);
+        when(trackerService.queryWorkItems(any(), any(), any())).thenReturn(workItems);
 
         List<List<?>> contextArguments = new ArrayList<>();
         try (MockedConstruction<RequirementsInspectorService> ignored = Mockito.mockConstruction(RequirementsInspectorService.class);
@@ -96,7 +100,8 @@ class RequirementsInspectorJobUnitTest {
             RequirementsInspectorJobUnit jobUnit = new RequirementsInspectorJobUnit("testJobName", mock(IJobUnitFactory.class), polarionService);
             jobUnit.setJob(mock(IJob.class));
             IContext scope = mock(IContext.class);
-            when(scope.getId()).thenReturn(mock(IContextId.class));
+            IContextId contextId = mock(IContextId.class);
+            when(scope.getId()).thenReturn(contextId);
             jobUnit.setScope(scope);
 
             jobUnit.setTypes("type1");
