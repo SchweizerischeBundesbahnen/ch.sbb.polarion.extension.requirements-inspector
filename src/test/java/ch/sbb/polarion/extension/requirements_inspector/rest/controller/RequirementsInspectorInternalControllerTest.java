@@ -3,7 +3,7 @@ package ch.sbb.polarion.extension.requirements_inspector.rest.controller;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspectorServiceConnector;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.model.RequirementsInspectorVersion;
 import ch.sbb.polarion.extension.requirements_inspector.rest.model.InspectWorkItemsParams;
-import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorPolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class RequirementsInspectorInternalControllerTest {
     @Mock
     RequirementsInspectorServiceConnector requirementsInspector;
     @Mock
-    PolarionService polarionService;
+    RequirementsInspectorPolarionService polarionService;
     @Mock
     RequirementsInspectorService requirementsInspectorService;
 
@@ -53,7 +53,7 @@ public class RequirementsInspectorInternalControllerTest {
     }
 
     @Test
-    void testMissingParameterNullReturnsBadRequest() {
+    void testNullParametersReturnBadRequest() {
         assertThatThrownBy(
                 () ->
                         requirementsInspectorInternalController.inspectRequirements(null))
@@ -70,5 +70,16 @@ public class RequirementsInspectorInternalControllerTest {
                         requirementsInspectorInternalController.inspectRequirements(inspectWorkItemsParams))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessageContaining("Parameter 'projectId' should be provided");
+    }
+
+    @Test
+    void testMissingParameterIdsReturnsBadRequest() {
+        InspectWorkItemsParams inspectWorkItemsParams =
+                new InspectWorkItemsParams("projectId", null, List.of(), false, true);
+        assertThatThrownBy(
+                () ->
+                        requirementsInspectorInternalController.inspectRequirements(inspectWorkItemsParams))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessageContaining("Parameter 'ids' should be provided");
     }
 }

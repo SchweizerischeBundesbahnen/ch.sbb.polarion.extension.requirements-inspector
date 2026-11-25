@@ -2,7 +2,7 @@ package ch.sbb.polarion.extension.requirements_inspector;
 
 import ch.sbb.polarion.extension.generic.util.JobLogger;
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.RequirementsInspectorServiceConnector;
-import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorPolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import ch.sbb.polarion.extension.requirements_inspector.util.Consts;
 import ch.sbb.polarion.extension.requirements_inspector.util.StringUtil;
@@ -15,17 +15,15 @@ import com.polarion.platform.jobs.IJobStatus;
 import com.polarion.platform.jobs.IJobUnitFactory;
 import com.polarion.platform.jobs.IProgressMonitor;
 import com.polarion.platform.jobs.spi.AbstractJobUnit;
-import lombok.Setter;
 import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.List;
 
-@Setter
 public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRequirementsInspectorJobUnit {
 
     private static final Logger logger = Logger.getLogger(RequirementsInspectorJobUnit.class);
 
-    private final PolarionService polarionService;
+    private final RequirementsInspectorPolarionService polarionService;
     private final RequirementsInspectorService requirementsInspectorService;
     private String types;
     private Boolean addMissingLanguage = false;
@@ -33,10 +31,35 @@ public class RequirementsInspectorJobUnit extends AbstractJobUnit implements IRe
     private String inspectFields = "";
     private String filter = "";
 
-    public RequirementsInspectorJobUnit(String name, IJobUnitFactory creator, PolarionService polarionService) {
+    public RequirementsInspectorJobUnit(String name, IJobUnitFactory creator, RequirementsInspectorPolarionService polarionService) {
         super(name, creator);
         this.polarionService = polarionService;
         this.requirementsInspectorService = new RequirementsInspectorService(polarionService, new RequirementsInspectorServiceConnector());
+    }
+
+    @Override
+    public void setTypes(String types) {
+        this.types = types;
+    }
+
+    @Override
+    public void setAddMissingLanguage(Boolean addMissingLanguage) {
+        this.addMissingLanguage = addMissingLanguage;
+    }
+
+    @Override
+    public void setInspectTitle(Boolean inspectTitle) {
+        this.inspectTitle = inspectTitle;
+    }
+
+    @Override
+    public void setInspectFields(String inspectFields) {
+        this.inspectFields = inspectFields;
+    }
+
+    @Override
+    public void setFilter(String filter) {
+        this.filter = filter;
     }
 
     @VisibleForTesting

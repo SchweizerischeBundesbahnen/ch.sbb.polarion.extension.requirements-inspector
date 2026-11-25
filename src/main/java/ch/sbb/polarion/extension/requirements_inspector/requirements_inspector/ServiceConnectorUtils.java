@@ -14,41 +14,35 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Calls of the Requirements Inspector Service. The {@link Client} belongs to the caller: these methods use it and
+ * never close it, so that one client can serve several calls.
+ */
 public final class ServiceConnectorUtils {
 
     private ServiceConnectorUtils() {
     }
 
-    public static List<Map<String, String>> inspectWorkitems(List<Map<String, String>> input, Client client) {
+    public static List<Map<String, String>> inspectWorkItems(List<Map<String, String>> input, Client client) {
         WebTarget webTarget = client.target(RequirementsInspectorExtensionConfiguration.getInstance().getRequirementsInspectorService() + "/inspect/workitems");
-        try {
-            try (Response response = webTarget.request(MediaType.APPLICATION_JSON).post(Entity.entity(JsonUtil.writeInputJson(input), MediaType.APPLICATION_JSON_TYPE))) {
-                if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                    throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
-                }
-                String content = response.readEntity(String.class);
-                return JsonUtil.parseOutputJson(content);
+        try (Response response = webTarget.request(MediaType.APPLICATION_JSON).post(Entity.entity(JsonUtil.writeInputJson(input), MediaType.APPLICATION_JSON_TYPE))) {
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
             }
-        } finally {
-            client.close();
+            String content = response.readEntity(String.class);
+            return JsonUtil.parseOutputJson(content);
         }
     }
 
     public static RequirementsInspectorVersion getRequirementsInspectorInfo(Client client) {
         WebTarget webTarget = client.target(RequirementsInspectorExtensionConfiguration.getInstance().getRequirementsInspectorService() + "/version");
-        try {
-
-            try (Response response = webTarget.request(MediaType.APPLICATION_JSON).get()) {
-                if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                    throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
-                }
-                return new ObjectMapper().readValue(response.readEntity(String.class), RequirementsInspectorVersion.class);
-
-            } catch (JsonProcessingException e) {
-                throw new IllegalStateException("Could not parse response", e);
+        try (Response response = webTarget.request(MediaType.APPLICATION_JSON).get()) {
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                throw new IllegalStateException("Could not get proper response from Requirements Inspector Service");
             }
-        } finally {
-            client.close();
+            return new ObjectMapper().readValue(response.readEntity(String.class), RequirementsInspectorVersion.class);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Could not parse response", e);
         }
     }
 }

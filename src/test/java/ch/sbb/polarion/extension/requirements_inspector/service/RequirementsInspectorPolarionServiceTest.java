@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class PolarionServiceTest {
+class RequirementsInspectorPolarionServiceTest {
 
     private static final String TEXT_FIELD_ID = "textFieldId";
     private static final String ENUM_FIELD_ID = "enumFieldId";
@@ -37,7 +37,7 @@ class PolarionServiceTest {
     @Test
     void testGetFieldData() {
 
-        PolarionService polarionService = new PolarionService(mock(ITrackerService.class), mock(IProjectService.class), mock(ISecurityService.class), mock(IPlatformService.class), mock(IRepositoryService.class));
+        RequirementsInspectorPolarionService polarionService = new RequirementsInspectorPolarionService(mock(ITrackerService.class), mock(IProjectService.class), mock(ISecurityService.class), mock(IPlatformService.class), mock(IRepositoryService.class));
 
         IWorkItem workItem1 = mock(IWorkItem.class);
         when(workItem1.getId()).thenReturn("id1");
@@ -86,7 +86,7 @@ class PolarionServiceTest {
     @Test
     @SuppressWarnings("rawtypes")
     void testUpdateWorkItemsFields() {
-        PolarionService polarionService = new PolarionService(mock(ITrackerService.class), mock(IProjectService.class), mock(ISecurityService.class), mock(IPlatformService.class), mock(IRepositoryService.class));
+        RequirementsInspectorPolarionService polarionService = new RequirementsInspectorPolarionService(mock(ITrackerService.class), mock(IProjectService.class), mock(ISecurityService.class), mock(IPlatformService.class), mock(IRepositoryService.class));
 
         IWorkItem workItem1 = mock(IWorkItem.class);
         when(workItem1.getId()).thenReturn("id1");

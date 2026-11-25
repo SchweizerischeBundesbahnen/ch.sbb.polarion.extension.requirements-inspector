@@ -22,10 +22,10 @@ public class RequirementsInspectorService {
 
     private static final Logger LOGGER = Logger.getLogger(RequirementsInspectorService.class);
 
-    private final PolarionService polarionService;
+    private final RequirementsInspectorPolarionService polarionService;
     private final RequirementsInspector requirementsInspector;
 
-    public RequirementsInspectorService(PolarionService polarionService, RequirementsInspector requirementsInspector) {
+    public RequirementsInspectorService(RequirementsInspectorPolarionService polarionService, RequirementsInspector requirementsInspector) {
         this.polarionService = polarionService;
         this.requirementsInspector = requirementsInspector;
     }
@@ -85,7 +85,7 @@ public class RequirementsInspectorService {
         }
 
         List<Map<String, String>> inputData = polarionService.getFieldData(context.fields, workItems);
-        List<Map<String, String>> data = requirementsInspector.inspectWorkitems(inputData);
+        List<Map<String, String>> data = requirementsInspector.inspectWorkItems(inputData);
 
         if (!context.addMissingLanguage) {
             data.forEach(item -> item.remove(Consts.LANGUAGE));

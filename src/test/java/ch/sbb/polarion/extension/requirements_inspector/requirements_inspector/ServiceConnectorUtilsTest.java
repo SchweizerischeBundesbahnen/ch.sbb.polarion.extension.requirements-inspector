@@ -45,32 +45,36 @@ class ServiceConnectorUtilsTest {
     }
 
     @Test
-    void testInspectWorkitemsEmpty() {
+    void testInspectWorkItemsEmpty() {
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(200);
         when(response.readEntity(String.class)).thenReturn("[]");
         setupPost(response);
 
-        assertEquals(List.of(), ServiceConnectorUtils.inspectWorkitems(workItems, client));
+        assertEquals(List.of(), ServiceConnectorUtils.inspectWorkItems(workItems, client));
+        // the client belongs to the caller, which may use it again
+        verify(client, never()).close();
     }
 
     @Test
-    void testInspectWorkitems() {
+    void testInspectWorkItems() {
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(200);
         when(response.readEntity(String.class)).thenReturn("[{\"title\": \"Example\"}]");
         setupPost(response);
 
-        assertNotNull(ServiceConnectorUtils.inspectWorkitems(workItems, client));
+        assertNotNull(ServiceConnectorUtils.inspectWorkItems(workItems, client));
     }
 
     @Test
-    void testInspectWorkitemsBadStatusCode() {
+    void testInspectWorkItemsBadStatusCode() {
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(500);
         setupPost(response);
 
-        assertThrows(IllegalStateException.class, () -> ServiceConnectorUtils.inspectWorkitems(workItems, client));
+        assertThrows(IllegalStateException.class, () -> ServiceConnectorUtils.inspectWorkItems(workItems, client));
+        verify(client, never()).close();
+        verify(response).close();
     }
 
     @Test
@@ -81,6 +85,7 @@ class ServiceConnectorUtilsTest {
         setupGet(response);
 
         assertEquals(new RequirementsInspectorVersion("3.11.9", "1.3.1", "1.0.0"), ServiceConnectorUtils.getRequirementsInspectorInfo(client));
+        verify(client, never()).close();
     }
 
     @Test
@@ -100,5 +105,7 @@ class ServiceConnectorUtilsTest {
         setupGet(response);
 
         assertThrows(IllegalStateException.class, () -> ServiceConnectorUtils.getRequirementsInspectorInfo(client));
+        verify(client, never()).close();
+        verify(response).close();
     }
 }

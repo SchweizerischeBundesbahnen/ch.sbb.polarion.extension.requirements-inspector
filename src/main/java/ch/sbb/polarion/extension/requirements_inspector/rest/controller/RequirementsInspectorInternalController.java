@@ -5,7 +5,7 @@ import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.R
 import ch.sbb.polarion.extension.requirements_inspector.requirements_inspector.model.RequirementsInspectorVersion;
 import ch.sbb.polarion.extension.requirements_inspector.rest.model.InspectWorkItemsParams;
 import ch.sbb.polarion.extension.requirements_inspector.rest.model.WorkItemResponse;
-import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorPolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import com.polarion.alm.tracker.model.IWorkItem;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -37,12 +37,12 @@ import java.util.Map;
 @SuppressWarnings("java:S1200")
 public class RequirementsInspectorInternalController {
 
-    private final PolarionService polarionService;
+    private final RequirementsInspectorPolarionService polarionService;
     private final RequirementsInspector requirementsInspector;
     private final RequirementsInspectorService requirementsInspectorService;
 
     public RequirementsInspectorInternalController() {
-        this.polarionService = new PolarionService();
+        this.polarionService = new RequirementsInspectorPolarionService();
         this.requirementsInspector = new RequirementsInspectorServiceConnector();
         this.requirementsInspectorService =
                 new RequirementsInspectorService(this.polarionService, this.requirementsInspector);
@@ -51,7 +51,7 @@ public class RequirementsInspectorInternalController {
     @VisibleForTesting
     @SuppressWarnings("unused")
     public RequirementsInspectorInternalController(
-            PolarionService polarionService,
+            RequirementsInspectorPolarionService polarionService,
             RequirementsInspectorServiceConnector requirementsInspector,
             RequirementsInspectorService requirementsInspectorService) {
         this.polarionService = polarionService;

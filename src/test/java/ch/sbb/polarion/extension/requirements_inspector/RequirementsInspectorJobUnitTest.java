@@ -1,7 +1,7 @@
 package ch.sbb.polarion.extension.requirements_inspector;
 
 import ch.sbb.polarion.extension.generic.util.JobLogger;
-import ch.sbb.polarion.extension.requirements_inspector.service.PolarionService;
+import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorPolarionService;
 import ch.sbb.polarion.extension.requirements_inspector.service.RequirementsInspectorService;
 import com.polarion.alm.projects.IProjectService;
 import com.polarion.alm.projects.model.IProject;
@@ -18,7 +18,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,7 +33,7 @@ class RequirementsInspectorJobUnitTest {
     void jobRunTest() {
         JobLogger.getInstance().clear();
 
-        PolarionService polarionService = mock(PolarionService.class);
+        RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
 
         IProjectService projectService = mock(IProjectService.class);
         when(polarionService.getProjectService()).thenReturn(projectService);
@@ -69,6 +71,44 @@ class RequirementsInspectorJobUnitTest {
 
             assertTrue(contextArgument.getValue().getFields().containsAll(Arrays.asList("field1", "field2")));
             assertEquals("", status.getMessage());
+        } finally {
+            JobLogger.getInstance().clear();
+        }
+    }
+
+    @Test
+    void jobParametersReachTheQueryAndTheInspection() {
+        JobLogger.getInstance().clear();
+
+        RequirementsInspectorPolarionService polarionService = mock(RequirementsInspectorPolarionService.class);
+        IProjectService projectService = mock(IProjectService.class);
+        when(polarionService.getProjectService()).thenReturn(projectService);
+        when(projectService.getProjectForContextId(any())).thenReturn(mock(IProject.class));
+        ITrackerService trackerService = mock(ITrackerService.class);
+        when(polarionService.getTrackerService()).thenReturn(trackerService);
+        when(trackerService.queryWorkItems(any(), any(), any())).thenReturn(mock(IPObjectList.class));
+
+        List<List<?>> contextArguments = new ArrayList<>();
+        try (MockedConstruction<RequirementsInspectorService> ignored = Mockito.mockConstruction(RequirementsInspectorService.class);
+             MockedConstruction<RequirementsInspectorService.Context> contexts = Mockito.mockConstruction(RequirementsInspectorService.Context.class,
+                     (mock, context) -> contextArguments.add(context.arguments()))) {
+
+            RequirementsInspectorJobUnit jobUnit = new RequirementsInspectorJobUnit("testJobName", mock(IJobUnitFactory.class), polarionService);
+            jobUnit.setJob(mock(IJob.class));
+            IContext scope = mock(IContext.class);
+            when(scope.getId()).thenReturn(mock(IContextId.class));
+            jobUnit.setScope(scope);
+
+            jobUnit.setTypes("type1");
+            jobUnit.setFilter("status:draft");
+            jobUnit.setInspectTitle(true);
+            jobUnit.setAddMissingLanguage(true);
+            jobUnit.runInternal(mock(IProgressMonitor.class));
+
+            verify(trackerService).queryWorkItems(any(), eq("NOT HAS_VALUE:resolution AND type:(type1) AND status:draft"), eq("id"));
+            // the context takes 'ignoreInspectTitle', the negation of the job's 'inspectTitle', then 'addMissingLanguage'
+            assertEquals(1, contexts.constructed().size());
+            assertEquals(List.of(false, true), contextArguments.get(0));
         } finally {
             JobLogger.getInstance().clear();
         }

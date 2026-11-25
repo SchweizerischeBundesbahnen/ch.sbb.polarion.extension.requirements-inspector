@@ -9,14 +9,16 @@ import java.util.Map;
 
 public class RequirementsInspectorServiceConnector implements RequirementsInspector {
     @Override
-    public List<Map<String, String>> inspectWorkitems(List<Map<String, String>> input) {
-        Client client = ClientBuilder.newClient();
-        return ServiceConnectorUtils.inspectWorkitems(input, client);
+    public List<Map<String, String>> inspectWorkItems(List<Map<String, String>> input) {
+        try (Client client = ClientBuilder.newClient()) {
+            return ServiceConnectorUtils.inspectWorkItems(input, client);
+        }
     }
 
     @Override
     public RequirementsInspectorVersion getRequirementsInspectorInfo() {
-        Client client = ClientBuilder.newClient();
-        return ServiceConnectorUtils.getRequirementsInspectorInfo(client);
+        try (Client client = ClientBuilder.newClient()) {
+            return ServiceConnectorUtils.getRequirementsInspectorInfo(client);
+        }
     }
 }
